@@ -1,0 +1,15 @@
+:root {
+  --pgca-primary: #263948;
+  --pgca-secondary: #4c636b;
+  --pgca-dark: #161616;
+  --pgca-light: #f5f5f5;
+  --pgca-white: #ffffff;
+
+  --font-primary: 'Archivo', sans-serif;
+
+  --container-max: 1280px;
+
+  --section-padding-desktop: 100px;
+  --section-padding-tablet: 80px;
+  --section-padding-mobile: 60px;
+}
