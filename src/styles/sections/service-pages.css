@@ -1,0 +1,144 @@
+/* =========================================
+   SERVICE PAGES
+========================================= */
+.service-page__hero {
+  min-height: 72vh;
+  display: flex;
+  align-items: center;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: var(--pgca-white);
+  padding-top: 140px;
+  padding-bottom: 60px;
+}
+
+.service-page__hero-content {
+  max-width: 760px;
+}
+
+.service-page__eyebrow {
+  font-size: 0.88rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 14px;
+  opacity: 0.9;
+}
+
+.service-page__title {
+  font-size: clamp(2.4rem, 5vw, 4.4rem);
+  line-height: 1.05;
+  margin-bottom: 18px;
+  font-weight: 700;
+  color: var(--pgca-white);
+}
+
+.service-page__intro {
+  font-size: clamp(1.05rem, 2vw, 1.3rem);
+  line-height: 1.8;
+  max-width: 720px;
+}
+
+.service-page__overview {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.service-page__section-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 12px;
+  opacity: 0.8;
+}
+
+.service-page__section-title {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.15;
+  margin-bottom: 18px;
+  font-weight: 700;
+  color: var(--pgca-primary);
+}
+
+.service-page__paragraph {
+  font-size: 1.02rem;
+  line-height: 1.9;
+  opacity: 0.92;
+}
+
+.service-page__services-card {
+  background-color: var(--pgca-light);
+  border: 1px solid rgba(38, 57, 72, 0.08);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.05);
+}
+
+.service-page__services-title {
+  font-size: 1.2rem;
+  color: var(--pgca-primary);
+  margin-bottom: 16px;
+  font-weight: 700;
+}
+
+.service-page__services-list {
+  display: grid;
+  gap: 12px;
+  padding-left: 18px;
+  margin: 0;
+}
+
+.service-page__services-item {
+  line-height: 1.7;
+}
+
+.service-page__closing-section {
+  background-color: var(--pgca-light);
+}
+
+.service-page__closing {
+  max-width: 840px;
+}
+
+.service-page__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 24px;
+  background: linear-gradient(180deg, #1d4c7c 0%, #163b61 100%);
+  color: var(--pgca-white);
+  min-width: 200px;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(7, 25, 41, 0.18);
+}
+
+@media (max-width: 992px) {
+  .service-page__overview {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .service-page__hero {
+    min-height: 62vh;
+    padding-top: 170px;
+    padding-bottom: 40px;
+  }
+
+  .service-page__title {
+    font-size: clamp(2rem, 9vw, 3rem);
+  }
+
+  .service-page__intro {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .service-page__services-card {
+    padding: 22px 18px;
+  }
+}

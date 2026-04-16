@@ -1,0 +1,177 @@
+/* =========================================
+   NAVBAR PGCA
+========================================= */
+.pgca-navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 3000;
+  padding: 18px 0;
+  transition: var(--pgca-transition);
+}
+
+.pgca-navbar.is-scrolled {
+  padding: 12px 0;
+  background-color: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--pgca-border);
+  box-shadow: 0 10px 24px rgba(24, 24, 24, 0.04);
+}
+
+.pgca-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.pgca-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.pgca-navbar__logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+}
+
+.pgca-navbar__desktop {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.pgca-navbar__nav-link,
+.pgca-navbar__nav-button {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--pgca-font-primary);
+  font-size: 0.96rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pgca-white);
+  transition: var(--pgca-transition);
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__nav-link,
+.pgca-navbar.is-scrolled .pgca-navbar__nav-button {
+  color: var(--pgca-primary);
+}
+
+.pgca-navbar__nav-link:hover,
+.pgca-navbar__nav-button:hover {
+  opacity: 0.72;
+}
+
+.pgca-navbar__toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(10px);
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__toggle {
+  border-color: var(--pgca-border);
+  background-color: rgba(38, 56, 72, 0.04);
+}
+
+.pgca-navbar__toggle span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background-color: var(--pgca-white);
+  transition: var(--pgca-transition);
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__toggle span {
+  background-color: var(--pgca-primary);
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.pgca-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 2900;
+  background-color: rgba(24, 24, 24, 0.34);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--pgca-transition);
+}
+
+.pgca-mobile-menu.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pgca-mobile-menu__panel {
+  margin: 96px 12px 0;
+  padding: 24px 20px;
+  border-radius: 22px;
+  background-color: rgba(255, 255, 255, 0.96);
+  border: 1px solid var(--pgca-border);
+  box-shadow: var(--pgca-shadow-medium);
+  display: grid;
+  gap: 14px;
+}
+
+.pgca-mobile-menu__link {
+  appearance: none;
+  border: none;
+  background: none;
+  padding: 0;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--pgca-primary);
+}
+
+@media (max-width: 992px) {
+  .pgca-navbar__logo {
+    height: 50px;
+  }
+
+  .pgca-navbar__desktop {
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pgca-navbar {
+    padding: 14px 0;
+  }
+
+  .pgca-navbar__desktop {
+    display: none;
+  }
+
+  .pgca-navbar__toggle {
+    display: inline-flex;
+  }
+
+  .pgca-navbar__logo {
+    height: 44px;
+  }
+}

@@ -1,51 +1,49 @@
 import { useEffect, useState } from 'react'
+import isotipoLight from '../../assets/brand/isotipo-light.png'
 
 const SplashScreen = () => {
-    const [visible, setVisible] = useState(true)
-    const [fadeOut, setFadeOut] = useState(false)
+  const [isLeaving, setIsLeaving] = useState(false)
+  const [visible, setVisible] = useState(true)
 
-    useEffect(() => {
-        const fadeTimer = setTimeout(() => {
-            setFadeOut(true)
-        }, 1200)
+  useEffect(() => {
+    const leaveTimer = setTimeout(() => {
+      setIsLeaving(true)
+    }, 1100)
 
-        const removeTimer = setTimeout(() => {
-            setVisible(false)
-        }, 1800)
+    const removeTimer = setTimeout(() => {
+      setVisible(false)
+    }, 2100)
 
-        return () => {
-            clearTimeout(fadeTimer)
-            clearTimeout(removeTimer)
-        }
-    }, [])
+    return () => {
+      clearTimeout(leaveTimer)
+      clearTimeout(removeTimer)
+    }
+  }, [])
 
-    if (!visible) return null
+  if (!visible) return null
 
-    return (
-        <div
-            style={{
-                position: 'fixed',
-                inset: 0,
-                backgroundColor: 'var(--pgca-primary)',
-                display: 'grid',
-                placeItems: 'center',
-                zIndex: 9999,
-                opacity: fadeOut ? 0 : 1,
-                transition: 'opacity 0.6s ease',
-            }}
-        >
-            <div
-                style={{
-                    color: 'var(--pgca-white)',
-                    fontSize: 'clamp(2rem, 5vw, 4rem)',
-                    fontWeight: 700,
-                    letterSpacing: '0.08em',
-                }}
-            >
-                PGCA
-            </div>
+  return (
+    <div className={`pgca-splash ${isLeaving ? 'is-leaving' : ''}`}>
+      <div className="pgca-splash__logo" aria-label="PGCA">
+        <div className="pgca-splash__half pgca-splash__half--left">
+          <img
+            src={isotipoLight}
+            alt="PGCA"
+            className="pgca-splash__image pgca-splash__image--left"
+          />
         </div>
-    )
+
+        <div className="pgca-splash__half pgca-splash__half--right">
+          <img
+            src={isotipoLight}
+            alt=""
+            aria-hidden="true"
+            className="pgca-splash__image pgca-splash__image--right"
+          />
+        </div>
+      </div>
+    </div>
+  )
 }
 
-export default SplashScreen;
+export default SplashScreen

@@ -1,0 +1,75 @@
+/* =========================================
+   FOOTER + FLOATING ACTIONS
+========================================= */
+.pgca-footer {
+  background-color: var(--pgca-dark);
+  color: var(--pgca-white);
+  padding: 28px 0;
+}
+
+.pgca-footer__inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  align-items: center;
+}
+
+.pgca-footer__brand {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+
+.pgca-footer__text {
+  opacity: 0.75;
+  margin: 0;
+}
+
+.pgca-footer__links {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.pgca-footer__links a {
+  opacity: 0.9;
+}
+
+.floating-actions {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  display: grid;
+  gap: 12px;
+  z-index: 2500;
+}
+
+.floating-actions__button {
+  width: 58px;
+  height: 58px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  color: var(--pgca-white);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+}
+
+.floating-actions__button--whatsapp {
+  background-color: #25d366;
+}
+
+.floating-actions__button--call {
+  background-color: #e53935;
+}
+
+@media (max-width: 768px) {
+  .pgca-footer__inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .floating-actions__button {
+    width: 54px;
+    height: 54px;
+  }
+}

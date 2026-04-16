@@ -2,6 +2,7 @@ import Navbar from '../components/layout/Navbar'
 import SplashScreen from '../components/layout/SplashScreen'
 import Footer from '../components/layout/Footer'
 import FloatingActions from '../components/layout/FloatingActions'
+import ScrollToTopOnMount from '../components/layout/ScrollToTopOnMount'
 import HeroSection from '../components/home/HeroSection'
 import RankingsSection from '../components/home/RankingsSection'
 import AboutPreviewSection from '../components/home/AboutPreviewSection'
@@ -11,25 +12,26 @@ import OfficesSection from '../components/home/OfficesSection'
 import ContactSection from '../components/home/ContactSection'
 
 const HomePage = () => {
-    return (
-        <>
-            <SplashScreen />
-            <Navbar />
-            <FloatingActions />
+  return (
+    <>
+      <ScrollToTopOnMount />
+      <SplashScreen />
+      <Navbar />
+      <FloatingActions />
 
-            <main>
-                <HeroSection />
-                <RankingsSection />
-                <AboutPreviewSection />
-                <PracticeAreasSection />
-                <PartnersSection />
-                <OfficesSection />
-                <ContactSection />
-            </main>
+      <main>
+        <HeroSection />
+        <RankingsSection />
+        <AboutPreviewSection />
+        <PracticeAreasSection />
+        <PartnersSection />
+        <OfficesSection />
+        <ContactSection />
+      </main>
 
-            <Footer />
-        </>
-    )
+      <Footer />
+    </>
+  )
 }
 
-export default HomePage;
+export default HomePage

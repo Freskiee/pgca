@@ -1,0 +1,91 @@
+/* =========================================
+   SPLASH SCREEN
+========================================= */
+.pgca-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 5000;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(180deg, #263848 0%, #1f2e39 100%);
+  opacity: 1;
+  transition: opacity 0.7s ease;
+}
+
+.pgca-splash__logo {
+  position: relative;
+  width: min(180px, 26vw);
+  height: min(180px, 26vw);
+}
+
+.pgca-splash__half {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.9s ease;
+  opacity: 1;
+}
+
+.pgca-splash__half--left {
+  left: 0;
+}
+
+.pgca-splash__half--right {
+  right: 0;
+}
+
+.pgca-splash__image {
+  position: absolute;
+  top: 0;
+  width: 180px;
+  max-width: none;
+  height: 180px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.18));
+}
+
+.pgca-splash__image--left {
+  left: 0;
+}
+
+.pgca-splash__image--right {
+  right: 0;
+}
+
+.pgca-splash.is-leaving .pgca-splash__half--left {
+  transform: translateX(-36px);
+  opacity: 0;
+}
+
+.pgca-splash.is-leaving .pgca-splash__half--right {
+  transform: translateX(36px);
+  opacity: 0;
+}
+
+.pgca-splash.is-leaving {
+  opacity: 0;
+}
+
+@media (max-width: 768px) {
+  .pgca-splash__logo {
+    width: min(128px, 30vw);
+    height: min(128px, 30vw);
+  }
+
+  .pgca-splash__image {
+    width: min(128px, 30vw);
+    height: min(128px, 30vw);
+  }
+
+  .pgca-splash.is-leaving .pgca-splash__half--left {
+    transform: translateX(-24px);
+  }
+
+  .pgca-splash.is-leaving .pgca-splash__half--right {
+    transform: translateX(24px);
+  }
+}
