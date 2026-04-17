@@ -4,31 +4,53 @@ const AboutPreviewSection = () => {
     const { title, description, highlights } = siteContent.aboutPreview
 
     return (
-        <section id="nosotros" className="pgca-section">
-            <div className="pgca-container">
-                <div className="about-preview">
-                    <div className="about-preview__content">
-                        <p className="about-preview__eyebrow">Nosotros</p>
-                        <h2 className="about-preview__title">{title}</h2>
-                        <p className="about-preview__description">{description}</p>
+        <section id="nosotros" className="about-cinematic-section">
+            <div className="about-cinematic-section__scene about-cinematic-section__scene--top">
+                <div className="about-cinematic-section__top-image" />
+                <div className="about-cinematic-section__top-overlay" />
 
-                        <div className="about-preview__highlights">
+                <div className="pgca-container about-cinematic-section__top-content">
+                    <h2 className="about-cinematic-section__hero-title">
+                        Una firma con visión
+                        <br />
+                        estratégica, enfoque
+                        <br />
+                        profesional y cercanía real.
+                    </h2>
+                </div>
+            </div>
+
+            <div className="about-cinematic-section__divider">
+                <div className="pgca-container">
+                    <div className="about-cinematic-section__divider-line" />
+                </div>
+            </div>
+
+            <div className="about-cinematic-section__scene about-cinematic-section__scene--bottom">
+                <div className="about-cinematic-section__bottom-image" />
+
+                <div className="pgca-container about-cinematic-section__bottom-grid">
+                    <div className="about-cinematic-section__bottom-visual" />
+
+                    <div className="about-cinematic-section__bottom-text">
+                        <p className="about-cinematic-section__eyebrow">Sobre nosotros</p>
+                        <h3 className="about-cinematic-section__title">{title}</h3>
+
+                        <p className="about-cinematic-section__paragraph">{description}</p>
+
+                        <div className="about-cinematic-section__highlights">
                             {highlights.map((item) => (
-                                <div key={item} className="about-preview__highlight">
-                                    {item}
+                                <div key={item} className="about-cinematic-section__highlight">
+                                    <span className="about-cinematic-section__highlight-dot" />
+                                    <p className="about-cinematic-section__highlight-text">{item}</p>
                                 </div>
                             ))}
                         </div>
-                    </div>
 
-                    <div className="about-preview__visual">
-                        <div className="about-preview__image-wrapper">
-                            <img
-                                src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop"
-                                alt="Despacho profesional"
-                                className="about-preview__image"
-                            />
-                        </div>
+                        <blockquote className="about-cinematic-section__quote">
+                            “Brindamos soluciones legales y contables con enfoque profesional,
+                            claridad estratégica y compromiso con cada cliente.”
+                        </blockquote>
                     </div>
                 </div>
             </div>
@@ -36,4 +58,4 @@ const AboutPreviewSection = () => {
     )
 }
 
-export default AboutPreviewSection;
+export default AboutPreviewSection

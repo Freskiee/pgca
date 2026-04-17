@@ -1,0 +1,125 @@
+/* =========================================
+   PARTNERS / EQUIPO
+========================================= */
+.partners-section {
+  position: relative;
+  background-color: var(--pgca-white);
+  padding-top: 0;
+}
+
+.partners-section__header {
+  max-width: 760px;
+  margin-bottom: 34px;
+}
+
+.partners-section__eyebrow {
+  margin: 0 0 12px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--pgca-secondary);
+  opacity: 0.85;
+  font-weight: 700;
+}
+
+.partners-section__title {
+  margin: 0 0 18px;
+  font-size: clamp(2rem, 3.6vw, 3.2rem);
+  line-height: 1.08;
+  font-weight: 700;
+  color: var(--pgca-primary);
+}
+
+.partners-section__description {
+  margin: 0;
+  font-size: 1.02rem;
+  line-height: 1.82;
+  color: var(--pgca-text);
+  opacity: 0.92;
+}
+
+.partners-section__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+
+.partner-card {
+  border-radius: 24px;
+  overflow: hidden;
+  background-color: var(--pgca-white);
+  border: 1px solid rgba(38, 56, 72, 0.08);
+  box-shadow:
+    0 18px 38px rgba(24, 24, 24, 0.08),
+    0 6px 16px rgba(24, 24, 24, 0.04);
+  transition:
+    transform 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease;
+}
+
+.partner-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 26px 52px rgba(24, 24, 24, 0.12),
+    0 10px 22px rgba(24, 24, 24, 0.06);
+  border-color: rgba(38, 56, 72, 0.12);
+}
+
+.partner-card__image-wrapper {
+  position: relative;
+  height: 380px;
+  overflow: hidden;
+  background-color: #dde3e7;
+}
+
+.partner-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.partner-card:hover .partner-card__image {
+  transform: scale(1.04);
+}
+
+.partner-card__content {
+  padding: 22px 22px 24px;
+}
+
+.partner-card__name {
+  margin: 0 0 8px;
+  font-size: 1.15rem;
+  color: var(--pgca-primary);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.partner-card__role {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  color: var(--pgca-text-soft);
+}
+
+@media (max-width: 1100px) {
+  .partners-section__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .partners-section__grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .partner-card__image-wrapper {
+    height: 320px;
+  }
+
+  .partner-card__content {
+    padding: 18px 18px 20px;
+  }
+}
