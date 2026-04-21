@@ -26,8 +26,8 @@ const HomePage = () => {
         <AboutPreviewSection />
         <RankingsSection />
         <PartnersSection />
-        <InstagramSection />
         <OfficesSection />
+        <InstagramSection />
         <ContactSection />
       </main>
 

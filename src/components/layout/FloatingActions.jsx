@@ -6,18 +6,20 @@ const FloatingActions = () => {
                 target="_blank"
                 rel="noreferrer"
                 className="floating-actions__button floating-actions__button--whatsapp"
+                aria-label="WhatsApp"
             >
-                WA
+                <i className="bi bi-whatsapp" />
             </a>
 
             <a
                 href="tel:+525593095640"
                 className="floating-actions__button floating-actions__button--call"
+                aria-label="Llamada de emergencia"
             >
-                SOS
+                <i className="bi bi-telephone-fill" />
             </a>
         </div>
     )
 }
 
-export default FloatingActions;
+export default FloatingActions
