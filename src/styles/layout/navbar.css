@@ -1,0 +1,314 @@
+/* =========================================
+   NAVBAR PGCA
+========================================= */
+html.pgca-menu-open,
+body.pgca-menu-open {
+  overflow: hidden;
+}
+
+.pgca-navbar {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 3000;
+  padding: 18px 0;
+  transition:
+    padding 0.28s ease,
+    background-color 0.28s ease,
+    box-shadow 0.28s ease,
+    border-color 0.28s ease,
+    backdrop-filter 0.28s ease;
+}
+
+.pgca-navbar.is-scrolled {
+  padding: 12px 0;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--pgca-border);
+  box-shadow: 0 10px 24px rgba(24, 24, 24, 0.04);
+}
+
+.pgca-navbar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  min-height: 56px;
+}
+
+.pgca-navbar__brand {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.pgca-navbar__logo {
+  height: 56px;
+  width: auto;
+  object-fit: contain;
+  transition:
+    height 0.28s ease,
+    opacity 0.28s ease,
+    transform 0.28s ease;
+}
+
+.pgca-navbar__brand:hover .pgca-navbar__logo {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.pgca-navbar__desktop {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: nowrap;
+}
+
+.pgca-navbar__nav-button {
+  appearance: none;
+  background: none;
+  border: none;
+  padding: 0;
+  font-family: var(--pgca-font-primary);
+  font-size: 0.94rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pgca-white);
+  transition:
+    color 0.22s ease,
+    opacity 0.22s ease,
+    transform 0.22s ease;
+  white-space: nowrap;
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__nav-button {
+  color: var(--pgca-primary);
+}
+
+.pgca-navbar__nav-button:hover {
+  opacity: 0.72;
+  transform: translateY(-1px);
+}
+
+.pgca-navbar__toggle {
+  display: none;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  padding: 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  backdrop-filter: blur(10px);
+  transition:
+    background-color 0.24s ease,
+    border-color 0.24s ease,
+    transform 0.24s ease;
+  flex-shrink: 0;
+}
+
+.pgca-navbar__toggle:hover {
+  transform: translateY(-1px);
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__toggle {
+  border-color: var(--pgca-border);
+  background-color: rgba(38, 56, 72, 0.04);
+}
+
+.pgca-navbar__toggle span {
+  width: 20px;
+  height: 2px;
+  border-radius: 999px;
+  background-color: var(--pgca-white);
+  transition:
+    transform 0.28s ease,
+    opacity 0.2s ease,
+    background-color 0.28s ease;
+  transform-origin: center;
+}
+
+.pgca-navbar.is-scrolled .pgca-navbar__toggle span {
+  background-color: var(--pgca-primary);
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(2) {
+  opacity: 0;
+}
+
+.pgca-navbar__toggle.is-open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* =========================================
+   MOBILE MENU
+========================================= */
+.pgca-mobile-menu {
+  position: fixed;
+  inset: 76px 0 0 0;
+  z-index: 2900;
+  background:
+    linear-gradient(180deg, rgba(20, 29, 40, 0.96) 0%, rgba(18, 27, 40, 0.98) 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(-12px);
+  transition:
+    opacity 0.28s ease,
+    visibility 0.28s ease,
+    transform 0.28s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.pgca-mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.pgca-mobile-menu__nav {
+  min-height: calc(100dvh - 76px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding: 22px 20px 28px;
+}
+
+.pgca-mobile-menu__link {
+  appearance: none;
+  border: none;
+  background: none;
+  width: 100%;
+  padding: 16px 0;
+  text-align: left;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: var(--pgca-white);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    color 0.22s ease;
+}
+
+.pgca-mobile-menu__link:hover {
+  opacity: 0.78;
+  transform: translateX(2px);
+}
+
+/* =========================================
+   SECTION OFFSET
+========================================= */
+#inicio,
+#servicios,
+#nosotros,
+#rankings,
+#equipo,
+#oficinas,
+#contacto {
+  scroll-margin-top: 88px;
+}
+
+/* =========================================
+   BREAKPOINTS
+========================================= */
+@media (max-width: 1200px) {
+  .pgca-navbar__desktop {
+    gap: 18px;
+  }
+
+  .pgca-navbar__nav-button {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 992px) {
+  .pgca-navbar__logo {
+    height: 50px;
+  }
+
+  .pgca-navbar__desktop {
+    gap: 14px;
+  }
+
+  .pgca-navbar__nav-button {
+    font-size: 0.87rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .pgca-navbar {
+    padding: 14px 0;
+  }
+
+  .pgca-navbar.is-scrolled {
+    padding: 10px 0;
+  }
+
+  .pgca-navbar__desktop {
+    display: none;
+  }
+
+  .pgca-navbar__toggle {
+    display: inline-flex;
+  }
+
+  .pgca-navbar__logo {
+    height: 44px;
+  }
+
+  .pgca-navbar__inner {
+    min-height: 44px;
+  }
+
+  .pgca-mobile-menu {
+    inset: 68px 0 0 0;
+  }
+
+  .pgca-mobile-menu__nav {
+    min-height: calc(100dvh - 68px);
+  }
+
+  #inicio,
+  #servicios,
+  #nosotros,
+  #rankings,
+  #equipo,
+  #oficinas,
+  #contacto {
+    scroll-margin-top: 78px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pgca-mobile-menu__nav {
+    padding: 18px 16px 24px;
+  }
+
+  .pgca-mobile-menu__link {
+    font-size: 0.98rem;
+    padding: 15px 0;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .pgca-mobile-menu {
+    inset: 62px 0 0 0;
+  }
+
+  .pgca-mobile-menu__nav {
+    min-height: calc(100dvh - 62px);
+    padding-top: 14px;
+    padding-bottom: 18px;
+  }
+}

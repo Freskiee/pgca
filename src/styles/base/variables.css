@@ -1,8 +1,8 @@
 :root {
   /* OFFICIAL BRAND COLORS */
-  --pgca-primary: #263848;       /* Azul Petróleo */
-  --pgca-secondary: #4c636b;     /* Gris Azulado */
-  --pgca-black: #181818;         /* Negro Ébano */
+  --pgca-primary: #263848;
+  --pgca-secondary: #4c636b;
+  --pgca-black: #181818;
 
   /* WEB SUPPORT COLORS */
   --pgca-dark: #1e2c35;

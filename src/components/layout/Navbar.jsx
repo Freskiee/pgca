@@ -4,10 +4,13 @@ import logotipoDark from '../../assets/brand/logotipo-dark.svg'
 import logotipoLight from '../../assets/brand/logotipo-light.png'
 
 const navItems = [
-  { label: 'Inicio', to: '/' },
-  { label: 'Áreas', to: '/#servicios' },
-  { label: 'Nosotros', to: '/#nosotros' },
-  { label: 'Contacto', to: '/#contacto' },
+  { label: 'Inicio', target: 'inicio' },
+  { label: 'Áreas', target: 'servicios' },
+  { label: 'Nosotros', target: 'nosotros' },
+  { label: 'Rankings', target: 'rankings' },
+  { label: 'Equipo', target: 'equipo' },
+  { label: 'Oficinas', target: 'oficinas' },
+  { label: 'Contacto', target: 'contacto' },
 ]
 
 const Navbar = () => {
@@ -18,7 +21,7 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const isHome = location.pathname === '/'
-  const useLightLogo = isHome && !isScrolled
+  const useLightLogo = isHome && !isScrolled && !isMenuOpen
 
   useEffect(() => {
     const handleScroll = () => {
@@ -26,9 +29,38 @@ const Navbar = () => {
     }
 
     handleScroll()
-    window.addEventListener('scroll', handleScroll)
+    window.addEventListener('scroll', handleScroll, { passive: true })
 
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    const body = document.body
+    const html = document.documentElement
+
+    if (isMenuOpen) {
+      body.classList.add('pgca-menu-open')
+      html.classList.add('pgca-menu-open')
+    } else {
+      body.classList.remove('pgca-menu-open')
+      html.classList.remove('pgca-menu-open')
+    }
+
+    return () => {
+      body.classList.remove('pgca-menu-open')
+      html.classList.remove('pgca-menu-open')
+    }
+  }, [isMenuOpen])
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') {
+        setIsMenuOpen(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleEscape)
+    return () => window.removeEventListener('keydown', handleEscape)
   }, [])
 
   useEffect(() => {
@@ -37,47 +69,21 @@ const Navbar = () => {
 
       const scrollToSection = () => {
         const element = document.getElementById(hash)
-
         if (element) {
-          const navbar = document.querySelector('.pgca-navbar')
-          const navbarHeight = navbar ? navbar.offsetHeight : 90
-          const extraOffset = 16
-
-          const targetPosition =
-            element.getBoundingClientRect().top +
-            window.pageYOffset -
-            navbarHeight -
-            extraOffset
-
-          window.scrollTo({
-            top: targetPosition,
+          element.scrollIntoView({
             behavior: 'smooth',
+            block: 'start',
           })
         }
       }
 
-      const timeout = setTimeout(scrollToSection, 120)
-      return () => clearTimeout(timeout)
+      const timeout = window.setTimeout(scrollToSection, 120)
+      return () => window.clearTimeout(timeout)
     }
   }, [location.pathname, location.hash])
 
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : ''
-
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [isMenuOpen])
-
   const closeMenu = () => {
     setIsMenuOpen(false)
-  }
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
   }
 
   const handleHomeNavigation = () => {
@@ -88,127 +94,121 @@ const Navbar = () => {
       return
     }
 
-    scrollToTop()
-  }
+    const element = document.getElementById('inicio')
 
-  const handleHashNavigation = (target) => {
-    const hash = target.replace('/#', '')
-
-    closeMenu()
-
-    if (location.pathname !== '/') {
-      navigate(`/#${hash}`)
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
       return
     }
 
-    const element = document.getElementById(hash)
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    })
+  }
+
+  const handleSectionNavigation = (target) => {
+    closeMenu()
+
+    if (location.pathname !== '/') {
+      navigate(`/#${target}`)
+      return
+    }
+
+    const element = document.getElementById(target)
 
     if (element) {
-      const navbar = document.querySelector('.pgca-navbar')
-      const navbarHeight = navbar ? navbar.offsetHeight : 90
-      const extraOffset = 16
-
-      const targetPosition =
-        element.getBoundingClientRect().top +
-        window.pageYOffset -
-        navbarHeight -
-        extraOffset
-
-      window.scrollTo({
-        top: targetPosition,
+      element.scrollIntoView({
         behavior: 'smooth',
+        block: 'start',
       })
     }
   }
 
   return (
-    <header className={`pgca-navbar ${isScrolled ? 'is-scrolled' : ''}`}>
-      <div className="pgca-container">
-        <div className="pgca-navbar__inner">
-          <Link
-            to="/"
-            className="pgca-navbar__brand"
-            aria-label="Ir al inicio"
-            onClick={(event) => {
-              if (location.pathname === '/') {
-                event.preventDefault()
-                handleHomeNavigation()
-              } else {
-                closeMenu()
+    <>
+      <header className={`pgca-navbar ${isScrolled || isMenuOpen ? 'is-scrolled' : ''}`}>
+        <div className="pgca-container">
+          <div className="pgca-navbar__inner">
+            <Link
+              to="/"
+              className="pgca-navbar__brand"
+              aria-label="Ir al inicio"
+              onClick={(event) => {
+                if (location.pathname === '/') {
+                  event.preventDefault()
+                  handleHomeNavigation()
+                } else {
+                  closeMenu()
+                }
+              }}
+            >
+              <img
+                src={useLightLogo ? logotipoLight : logotipoDark}
+                alt="PGCA"
+                className="pgca-navbar__logo"
+              />
+            </Link>
+
+            <nav className="pgca-navbar__desktop" aria-label="Navegación principal">
+              {navItems.map((item) => (
+                <button
+                  key={item.label}
+                  type="button"
+                  className="pgca-navbar__nav-button"
+                  onClick={() =>
+                    item.target === 'inicio'
+                      ? handleHomeNavigation()
+                      : handleSectionNavigation(item.target)
+                  }
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+
+            <button
+              type="button"
+              className={`pgca-navbar__toggle ${isMenuOpen ? 'is-open' : ''}`}
+              onClick={() => setIsMenuOpen((prev) => !prev)}
+              aria-label={isMenuOpen ? 'Cerrar menú' : 'Abrir menú'}
+              aria-expanded={isMenuOpen}
+              aria-controls="pgca-mobile-menu"
+            >
+              <span />
+              <span />
+              <span />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <div
+        id="pgca-mobile-menu"
+        className={`pgca-mobile-menu ${isMenuOpen ? 'is-open' : ''}`}
+        aria-hidden={!isMenuOpen}
+      >
+        <nav className="pgca-mobile-menu__nav" aria-label="Navegación móvil">
+          {navItems.map((item) => (
+            <button
+              key={item.label}
+              type="button"
+              className="pgca-mobile-menu__link"
+              onClick={() =>
+                item.target === 'inicio'
+                  ? handleHomeNavigation()
+                  : handleSectionNavigation(item.target)
               }
-            }}
-          >
-            <img
-              src={useLightLogo ? logotipoLight : logotipoDark}
-              alt="PGCA"
-              className="pgca-navbar__logo"
-            />
-          </Link>
-
-          <nav className="pgca-navbar__desktop">
-            {navItems.map((item) =>
-              item.label === 'Inicio' ? (
-                <button
-                  key={item.label}
-                  type="button"
-                  className="pgca-navbar__nav-button"
-                  onClick={handleHomeNavigation}
-                >
-                  {item.label}
-                </button>
-              ) : (
-                <button
-                  key={item.label}
-                  type="button"
-                  className="pgca-navbar__nav-button"
-                  onClick={() => handleHashNavigation(item.to)}
-                >
-                  {item.label}
-                </button>
-              )
-            )}
-          </nav>
-
-          <button
-            type="button"
-            className={`pgca-navbar__toggle ${isMenuOpen ? 'is-open' : ''}`}
-            onClick={() => setIsMenuOpen((prev) => !prev)}
-            aria-label="Abrir menú"
-            aria-expanded={isMenuOpen}
-          >
-            <span />
-            <span />
-            <span />
-          </button>
-        </div>
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
       </div>
-
-      <div className={`pgca-mobile-menu ${isMenuOpen ? 'is-open' : ''}`}>
-        <div className="pgca-mobile-menu__panel">
-          {navItems.map((item) =>
-            item.label === 'Inicio' ? (
-              <button
-                key={item.label}
-                type="button"
-                className="pgca-mobile-menu__link"
-                onClick={handleHomeNavigation}
-              >
-                {item.label}
-              </button>
-            ) : (
-              <button
-                key={item.label}
-                type="button"
-                className="pgca-mobile-menu__link"
-                onClick={() => handleHashNavigation(item.to)}
-              >
-                {item.label}
-              </button>
-            )
-          )}
-        </div>
-      </div>
-    </header>
+    </>
   )
 }
 

@@ -97,6 +97,12 @@
   background-color: var(--pgca-border);
 }
 
+@media (max-width: 1024px) {
+  .pgca-container {
+    width: min(var(--pgca-container-width), calc(100% - 32px));
+  }
+}
+
 @media (max-width: 768px) {
   .pgca-container {
     width: min(var(--pgca-container-width), calc(100% - 24px));

@@ -20,15 +20,19 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 #root {
   min-height: 100vh;
+  overflow-x: clip;
 }
 
 img,
 svg,
-video {
+video,
+canvas,
+iframe {
   display: block;
   max-width: 100%;
 }
@@ -49,6 +53,12 @@ button {
   cursor: pointer;
 }
 
+input,
+textarea,
+select {
+  min-width: 0;
+}
+
 h1,
 h2,
 h3,
@@ -56,20 +66,33 @@ h4,
 h5,
 h6 {
   margin-top: 0;
+  margin-bottom: 0;
   color: var(--pgca-primary);
   font-family: var(--pgca-font-primary);
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
 
 p {
   margin-top: 0;
+  margin-bottom: 0;
 }
 
 ul,
 ol {
   margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 1.2rem;
 }
 
 section {
   position: relative;
+}
+
+textarea {
+  resize: vertical;
+}
+
+:where(p, li, a, h1, h2, h3, h4, h5, h6, span, small) {
+  overflow-wrap: break-word;
 }
