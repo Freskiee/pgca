@@ -1,43 +1,71 @@
+import { useState } from 'react'
 import { siteContent } from '../../data/siteContent'
 import HeroMissionVisionTabs from './HeroMissionVisionTabs'
 
 const HeroSection = () => {
-  const { title, description, primaryCta, backgroundImage, sideImage } =
-    siteContent.hero
+  const { title, description, primaryCta, backgroundImage } = siteContent.hero
+  const [isFolderOpen, setIsFolderOpen] = useState(false)
+
+  const handleContactClick = (event) => {
+    event.preventDefault()
+
+    const section = document.getElementById('contacto')
+
+    if (section) {
+      section.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
+    }
+
+    if (window.location.hash) {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }
 
   return (
     <section
       id="inicio"
-      className="hero-section"
+      className="hero-section hero-section--parallax"
       style={{
-        backgroundImage: `linear-gradient(rgba(18, 27, 34, 0.32), rgba(18, 27, 34, 0.56)), url("${backgroundImage}")`,
+        backgroundImage: `
+          linear-gradient(180deg, rgba(14, 22, 30, 0.10) 0%, rgba(14, 22, 30, 0.42) 100%),
+          url("${backgroundImage}")
+        `,
       }}
     >
+      <div className="hero-section__backdrop" />
+
       <div className="pgca-container hero-section__container">
         <div className="hero-section__layout">
           <div className="hero-section__content">
             <div className="hero-section__content-box">
+              <span className="hero-section__eyebrow">
+                Asesoría legal y contable
+              </span>
+
               <h1 className="hero-section__title">{title}</h1>
+
               <p className="hero-section__subtitle">{description}</p>
+            </div>
+          </div>
 
-              <a href={primaryCta.href} className="hero-section__button">
+          <aside className={`hero-section__aside ${isFolderOpen ? 'has-open-card' : ''}`}>
+            <a
+              href={primaryCta.href}
+              className="hero-section__cta-link"
+              onClick={handleContactClick}
+            >
+              <span className="hero-section__cta-depth" />
+              <span className="hero-section__cta-text">
+                <i className="bi bi-telephone-fill" />
                 {primaryCta.label}
-              </a>
-            </div>
-          </div>
+              </span>
+            </a>
 
-          <div className="hero-section__visual">
-            <div className="hero-section__visual-frame">
-              <img
-                src={sideImage}
-                alt="Representación legal y contable"
-                className="hero-section__visual-image"
-              />
-            </div>
-          </div>
+            <HeroMissionVisionTabs onOpenChange={setIsFolderOpen} />
+          </aside>
         </div>
-
-        <HeroMissionVisionTabs />
       </div>
     </section>
   )
