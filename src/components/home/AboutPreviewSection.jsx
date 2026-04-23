@@ -156,6 +156,8 @@ const AboutPreviewSection = () => {
     const [isAnimating, setIsAnimating] = useState(true)
     const [isPaused, setIsPaused] = useState(false)
     const [activeMember, setActiveMember] = useState(null)
+    const [previewMemberId, setPreviewMemberId] = useState(null)
+    const [isTouchDevice, setIsTouchDevice] = useState(false)
 
     const clonesHead = useMemo(() => teamMembers.slice(0, cardsPerView), [cardsPerView])
     const clonesTail = useMemo(() => teamMembers.slice(-cardsPerView), [cardsPerView])
@@ -166,7 +168,14 @@ const AboutPreviewSection = () => {
     )
 
     useEffect(() => {
-        const handleResize = () => {
+        const checkTouchDevice = () => {
+            const hasTouch =
+                window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+                'ontouchstart' in window ||
+                navigator.maxTouchPoints > 0
+
+            setIsTouchDevice(hasTouch)
+
             const nextCards = getCardsPerView(window.innerWidth)
 
             setCardsPerView((prevCards) => {
@@ -178,8 +187,10 @@ const AboutPreviewSection = () => {
             })
         }
 
-        window.addEventListener('resize', handleResize)
-        return () => window.removeEventListener('resize', handleResize)
+        checkTouchDevice()
+        window.addEventListener('resize', checkTouchDevice)
+
+        return () => window.removeEventListener('resize', checkTouchDevice)
     }, [])
 
     useEffect(() => {
@@ -207,7 +218,10 @@ const AboutPreviewSection = () => {
 
     useEffect(() => {
         const onEsc = (event) => {
-            if (event.key === 'Escape') setActiveMember(null)
+            if (event.key === 'Escape') {
+                setActiveMember(null)
+                setPreviewMemberId(null)
+            }
         }
 
         window.addEventListener('keydown', onEsc)
@@ -244,6 +258,26 @@ const AboutPreviewSection = () => {
     const goNext = () => {
         setIsAnimating(true)
         setCurrentIndex((prev) => prev + 1)
+    }
+
+    const handleMemberCardClick = (member) => {
+        if (!isTouchDevice) {
+            setActiveMember(member)
+            setPreviewMemberId(member.id)
+            return
+        }
+
+        if (previewMemberId !== member.id) {
+            setPreviewMemberId(member.id)
+            return
+        }
+
+        setActiveMember(member)
+    }
+
+    const handleCloseModal = () => {
+        setActiveMember(null)
+        setPreviewMemberId(null)
     }
 
     const normalizedIndex =
@@ -289,17 +323,18 @@ const AboutPreviewSection = () => {
                                         >
                                             {carouselItems.map((member, index) => {
                                                 const isSelected = activeMember?.id === member.id
+                                                const isPreviewed = previewMemberId === member.id
 
                                                 return (
                                                     <article
                                                         key={`${member.id}-${index}`}
-                                                        className={`about-team-card ${isSelected ? 'is-selected' : ''}`}
+                                                        className={`about-team-card ${isSelected || isPreviewed ? 'is-selected' : ''}`}
                                                         style={{ width: `${100 / cardsPerView}%` }}
                                                     >
                                                         <button
                                                             type="button"
                                                             className="about-team-card__button"
-                                                            onClick={() => setActiveMember(member)}
+                                                            onClick={() => handleMemberCardClick(member)}
                                                             aria-label={`Ver perfil de ${member.name}`}
                                                         >
                                                             <div className="about-team-card__image-wrap">
@@ -343,6 +378,7 @@ const AboutPreviewSection = () => {
                                             onClick={() => {
                                                 setIsAnimating(true)
                                                 setCurrentIndex(dotIndex + cardsPerView)
+                                                setPreviewMemberId(null)
                                             }}
                                             aria-label={`Ir a ${member.name}`}
                                         />
@@ -360,7 +396,7 @@ const AboutPreviewSection = () => {
                     role="dialog"
                     aria-modal="true"
                     aria-label={`Perfil de ${activeMember.name}`}
-                    onClick={() => setActiveMember(null)}
+                    onClick={handleCloseModal}
                 >
                     <div
                         className="about-team-modal__dialog"
@@ -370,7 +406,7 @@ const AboutPreviewSection = () => {
                             type="button"
                             className="about-team-modal__close"
                             aria-label="Cerrar"
-                            onClick={() => setActiveMember(null)}
+                            onClick={handleCloseModal}
                         >
                             ×
                         </button>
@@ -441,4 +477,4 @@ const AboutPreviewSection = () => {
     )
 }
 
-export default AboutPreviewSection;
+export default AboutPreviewSection
