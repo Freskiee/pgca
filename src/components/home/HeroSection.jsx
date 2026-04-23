@@ -2,26 +2,32 @@ import { useState } from 'react'
 import { siteContent } from '../../data/siteContent'
 import HeroMissionVisionTabs from './HeroMissionVisionTabs'
 
+import bestLawyersLogo from '../../assets/rankings/best-lawyers.svg'
+import legal500Logo from '../../assets/rankings/legal-500.png'
+import chambersLogo from '../../assets/rankings/chambers.svg'
+import leadersLeagueLogo from '../../assets/rankings/leaders-league.png'
+import benchmarkLogo from '../../assets/rankings/benchmark-litigation.png'
+
 const heroMarqueeItems = [
   {
     name: 'Best Lawyers',
-    image: '/src/assets/rankings/best-lawyers.svg',
+    image: bestLawyersLogo,
   },
   {
     name: 'The Legal 500',
-    image: '/src/assets/rankings/legal-500.png',
+    image: legal500Logo,
   },
   {
     name: 'Chambers and Partners',
-    image: '/src/assets/rankings/chambers.svg',
+    image: chambersLogo,
   },
   {
     name: 'Leaders League',
-    image: '/src/assets/rankings/leaders-league.png',
+    image: leadersLeagueLogo,
   },
   {
     name: 'Benchmark Litigation',
-    image: '/src/assets/rankings/benchmark-litigation.png',
+    image: benchmarkLogo,
   },
 ]
 
@@ -118,4 +124,4 @@ const HeroSection = () => {
   )
 }
 
-export default HeroSection
+export default HeroSection;

@@ -1,27 +1,33 @@
+import bestLawyersLogo from '../../assets/rankings/best-lawyers.svg'
+import legal500Logo from '../../assets/rankings/legal-500.png'
+import chambersLogo from '../../assets/rankings/chambers.svg'
+import leadersLeagueLogo from '../../assets/rankings/leaders-league.png'
+import benchmarkLogo from '../../assets/rankings/benchmark-litigation.png'
+
 const rankingsLogos = [
   {
     name: 'Best Lawyers',
-    image: '/src/assets/rankings/best-lawyers.svg',
+    image: bestLawyersLogo,
     href: 'https://www.bestlawyers.com/',
   },
   {
     name: 'The Legal 500',
-    image: '/src/assets/rankings/legal-500.png',
+    image: legal500Logo,
     href: 'https://www.legal500.com/',
   },
   {
     name: 'Chambers and Partners',
-    image: '/src/assets/rankings/chambers.svg',
+    image: chambersLogo,
     href: 'https://chambers.com/',
   },
   {
     name: 'Leaders League',
-    image: '/src/assets/rankings/leaders-league.png',
+    image: leadersLeagueLogo,
     href: 'https://www.leadersleague.com/',
   },
   {
     name: 'Benchmark Litigation',
-    image: '/src/assets/rankings/benchmark-litigation.png',
+    image: benchmarkLogo,
     href: 'https://benchmarklitigation.com/',
   },
 ]
