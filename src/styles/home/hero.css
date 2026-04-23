@@ -325,6 +325,27 @@
   display: none;
 }
 
+.hero-mobile-side__caret {
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -0.08em;
+  animation: heroCaretBlink 0.9s steps(1) infinite;
+}
+
+@keyframes heroCaretBlink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0;
+  }
+}
+
 /* =========================================
    LARGE TABLET / SMALL LAPTOP
 ========================================= */
@@ -455,17 +476,14 @@
     max-width: min(82%, 560px);
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.22s ease;
   }
 
-  /* Misión sale a la derecha */
   .hero-mobile-side__content--mission {
     top: 0;
     left: 84px;
     text-align: left;
   }
 
-  /* Visión sale a la izquierda */
   .hero-mobile-side__content--vision {
     right: 84px;
     bottom: 0;
@@ -479,45 +497,14 @@
 
   .hero-mobile-side__title,
   .hero-mobile-side__text {
-    opacity: 0;
-    transition:
-      opacity 0.28s ease,
-      transform 0.42s ease;
-  }
-
-  /* Misión se escribe desde izquierda */
-  .hero-mobile-side__content--mission .hero-mobile-side__title,
-  .hero-mobile-side__content--mission .hero-mobile-side__text {
-    transform: translateX(-14px);
-    text-align: left;
-    margin-left: 0;
-    margin-right: auto;
-  }
-
-  /* Visión se escribe desde derecha */
-  .hero-mobile-side__content--vision .hero-mobile-side__title,
-  .hero-mobile-side__content--vision .hero-mobile-side__text {
-    transform: translateX(14px);
-    text-align: right;
-    margin-left: auto;
-    margin-right: 0;
-  }
-
-  .hero-mobile-side__content.is-open .hero-mobile-side__title {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.06s;
-  }
-
-  .hero-mobile-side__content.is-open .hero-mobile-side__text {
-    opacity: 1;
-    transform: translateX(0);
-    transition-delay: 0.18s;
+    margin: 0;
+    font-family: 'Georgia', 'Times New Roman', serif;
+    color: rgba(255, 255, 255, 0.94);
+    letter-spacing: 0.01em;
   }
 
   .hero-mobile-side__title {
-    margin: 0 0 10px;
-    font-family: 'Georgia', 'Times New Roman', serif;
+    margin-bottom: 10px;
     font-size: 1.6rem;
     line-height: 1;
     font-weight: 700;
@@ -525,12 +512,23 @@
   }
 
   .hero-mobile-side__text {
-    margin: 0;
-    font-family: 'Georgia', 'Times New Roman', serif;
     font-size: 1rem;
     line-height: 1.78;
-    color: rgba(255, 255, 255, 0.94);
-    letter-spacing: 0.01em;
+    white-space: pre-wrap;
+  }
+
+  .hero-mobile-side__content--mission .hero-mobile-side__title,
+  .hero-mobile-side__content--mission .hero-mobile-side__text {
+    text-align: left;
+    margin-left: 0;
+    margin-right: auto;
+  }
+
+  .hero-mobile-side__content--vision .hero-mobile-side__title,
+  .hero-mobile-side__content--vision .hero-mobile-side__text {
+    text-align: right;
+    margin-left: auto;
+    margin-right: 0;
   }
 }
 
@@ -702,5 +700,27 @@
   .hero-mobile-side__text {
     font-size: 0.88rem;
     line-height: 1.55;
+  }
+}
+
+.hero-mobile-side__caret {
+  display: inline-block;
+  width: 1px;
+  height: 0.95em;
+  margin-left: 2px;
+  background: currentColor;
+  vertical-align: -0.08em;
+  opacity: 0.8;
+  animation: heroCaretBlink 0.9s steps(1) infinite;
+}
+
+@keyframes heroCaretBlink {
+  0%,
+  49% {
+    opacity: 0.85;
+  }
+  50%,
+  100% {
+    opacity: 0;
   }
 }
