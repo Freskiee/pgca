@@ -7,7 +7,6 @@ import HeroSection from '../components/home/HeroSection'
 import PracticeAreasSection from '../components/home/PracticeAreasSection'
 import AboutPreviewSection from '../components/home/AboutPreviewSection'
 import RankingsSection from '../components/home/RankingsSection'
-import PartnersSection from '../components/home/PartnersSection'
 import InstagramSection from '../components/home/InstagramSection'
 import OfficesSection from '../components/home/OfficesSection'
 import ContactSection from '../components/home/ContactSection'
@@ -25,7 +24,6 @@ const HomePage = () => {
         <PracticeAreasSection />
         <AboutPreviewSection />
         <RankingsSection />
-        <PartnersSection />
         <OfficesSection />
         <InstagramSection />
         <ContactSection />

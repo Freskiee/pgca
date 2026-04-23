@@ -13,8 +13,6 @@ export const siteContent = {
     },
     backgroundImage:
       'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1800&auto=format&fit=crop',
-    sideImage:
-      'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?q=80&w=1200&auto=format&fit=crop',
     mission:
       'Proporcionar asesoría legal y contable de excelencia, basada en la integridad, la ética y la profesionalidad. Nos esforzamos por ser socios estratégicos de nuestros clientes, ayudándolos a alcanzar sus objetivos y resolver sus desafíos con soluciones eficientes y efectivas.',
     vision:
@@ -22,40 +20,9 @@ export const siteContent = {
   },
 
   aboutPreview: {
-    title: 'Solidez profesional con visión estratégica',
+    title: 'Nuestro Equipo',
     description:
-      'Somos un despacho multidisciplinario con sólida trayectoria en la provisión de servicios legales y contables. Nuestro equipo está conformado por profesionistas altamente capacitados, comprometidos con ofrecer soluciones personalizadas, claras y efectivas para cada cliente.',
-    teamText:
       'Contamos con un equipo de profesionales altamente capacitados y con amplia experiencia en sus respectivas áreas. Nos enorgullecemos de nuestra dedicación y compromiso para ofrecer servicios personalizados y de alta calidad.',
-    highlights: [
-      'Atención legal y contable integral',
-      'Enfoque estratégico y profesional',
-      'Relación cercana, ética y confiable',
-    ],
-  },
-
-  rankings: {
-    title: 'Reconocimientos y presencia destacada',
-    description:
-      'Estructura preparada para mostrar rankings, directorios, distintivos o instituciones donde el despacho tenga presencia y reconocimiento.',
-    items: [
-      { name: 'Top Ranking 2024' },
-      { name: 'Top Law Firm' },
-      { name: 'Law Awards Winner' },
-      { name: 'Best Client Experience' },
-    ],
-  },
-
-  missionVision: {
-    title: 'Principios que guían nuestra práctica',
-    mission: {
-      title: 'Misión',
-      text: 'Proporcionar asesoría legal y contable de excelencia, basada en la integridad, la ética y la profesionalidad. Nos esforzamos por ser socios estratégicos de nuestros clientes, ayudándolos a alcanzar sus objetivos y resolver sus desafíos con soluciones eficientes y efectivas.',
-    },
-    vision: {
-      title: 'Visión',
-      text: 'Ser reconocidos como líderes en el campo de la asesoría legal y contable, destacándonos por nuestra innovación, calidad de servicio y compromiso con la satisfacción del cliente. Aspiramos a crecer de manera sostenible, fortaleciendo nuestras capacidades y relaciones.',
-    },
   },
 
   practiceAreas: {
