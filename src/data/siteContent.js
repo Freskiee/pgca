@@ -15,12 +15,18 @@ export const siteContent = {
       'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1800&auto=format&fit=crop',
     sideImage:
       'https://images.unsplash.com/photo-1589994965851-a8f479c573a9?q=80&w=1200&auto=format&fit=crop',
+    mission:
+      'Proporcionar asesoría legal y contable de excelencia, basada en la integridad, la ética y la profesionalidad. Nos esforzamos por ser socios estratégicos de nuestros clientes, ayudándolos a alcanzar sus objetivos y resolver sus desafíos con soluciones eficientes y efectivas.',
+    vision:
+      'Ser reconocidos como líderes en el campo de la asesoría legal y contable, distinguiéndonos por la innovación, la calidad del servicio y el compromiso con la satisfacción del cliente. Aspiramos a crecer de forma sostenible, ampliando nuestras capacidades y fortaleciendo nuestras relaciones con los clientes y la comunidad.',
   },
 
   aboutPreview: {
     title: 'Solidez profesional con visión estratégica',
     description:
       'Somos un despacho multidisciplinario con sólida trayectoria en la provisión de servicios legales y contables. Nuestro equipo está conformado por profesionistas altamente capacitados, comprometidos con ofrecer soluciones personalizadas, claras y efectivas para cada cliente.',
+    teamText:
+      'Contamos con un equipo de profesionales altamente capacitados y con amplia experiencia en sus respectivas áreas. Nos enorgullecemos de nuestra dedicación y compromiso para ofrecer servicios personalizados y de alta calidad.',
     highlights: [
       'Atención legal y contable integral',
       'Enfoque estratégico y profesional',
@@ -83,5 +89,4 @@ export const siteContent = {
       },
     ],
   },
-
 }
