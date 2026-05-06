@@ -2,32 +2,37 @@ import { useState } from 'react'
 import { siteContent } from '../../data/siteContent'
 import HeroMissionVisionTabs from './HeroMissionVisionTabs'
 
-import bestLawyersLogo from '../../assets/rankings/best-lawyers.svg'
-import legal500Logo from '../../assets/rankings/legal-500.png'
-import chambersLogo from '../../assets/rankings/chambers.svg'
-import leadersLeagueLogo from '../../assets/rankings/leaders-league.png'
-import benchmarkLogo from '../../assets/rankings/benchmark-litigation.png'
+import mejoresAbogadosMexicoLogo from '../../assets/rankings/mejores-abogados-mexico.svg'
+import topsMexico from '../../assets/rankings/tops-mexico.svg'
+import mejores2023Logo from '../../assets/rankings/mejores_2023.svg'
+import mejores2024Logo from '../../assets/rankings/mejores_2024.svg'
+import mejores2025Logo from '../../assets/rankings/mejores_2025.svg'
+import mejores2026Logo from '../../assets/rankings/mejores_2026.svg'
 
 const heroMarqueeItems = [
   {
-    name: 'Best Lawyers',
-    image: bestLawyersLogo,
+    name: 'Los Mejores Abogados de México',
+    image: mejoresAbogadosMexicoLogo,
   },
   {
-    name: 'The Legal 500',
-    image: legal500Logo,
+    name: 'Tops México',
+    image: topsMexico,
   },
   {
-    name: 'Chambers and Partners',
-    image: chambersLogo,
+    name: 'Mejores Abogados 2023',
+    image: mejores2023Logo,
   },
   {
-    name: 'Leaders League',
-    image: leadersLeagueLogo,
+    name: 'Mejores Abogados 2024',
+    image: mejores2024Logo,
   },
   {
-    name: 'Benchmark Litigation',
-    image: benchmarkLogo,
+    name: 'Mejores Abogados 2025',
+    image: mejores2025Logo,
+  },
+  {
+    name: 'Mejores Abogados 2026',
+    image: mejores2026Logo,
   },
 ]
 

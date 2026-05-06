@@ -1,0 +1,31 @@
+<svg width="520" height="240" viewBox="0 0 520 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.98">
+
+    <!-- LOS MEJORES -->
+    <text x="260" y="36" text-anchor="middle" fill="#F4F1EA" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="14" font-weight="400">
+      LOS MEJORES
+    </text>
+
+    <!-- Línea superior -->
+    <line x1="72" y1="54" x2="448" y2="54" stroke="#F4F1EA" stroke-width="1.8" opacity="0.85"></line>
+
+    <!-- ABOGADOS -->
+    <text x="260" y="124" text-anchor="middle" fill="#F4F1EA" font-family="Didot, Bodoni MT, Georgia, serif" font-size="80" font-weight="500" letter-spacing="-2">
+      ABOGADOS
+    </text>
+
+    <!-- DE MÉXICO -->
+    <text x="260" y="162" text-anchor="middle" fill="#F4F1EA" font-family="Helvetica, Arial, sans-serif" font-size="17" letter-spacing="11" font-weight="400">
+      DE MÉXICO
+    </text>
+
+    <!-- Separador decorativo -->
+    <line x1="190" y1="184" x2="330" y2="184" stroke="#D8B46A" stroke-width="1.5" opacity="0.9"></line>
+
+    <!-- 2024 -->
+    <text x="260" y="223" text-anchor="middle" fill="#D8B46A" font-family="Didot, Bodoni MT, Georgia, serif" font-size="38" font-weight="400" letter-spacing="10">
+      2024
+    </text>
+
+  </g>
+</svg>

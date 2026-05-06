@@ -1,0 +1,31 @@
+<svg width="520" height="240" viewBox="0 0 520 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <g opacity="0.98">
+
+    <!-- LOS MEJORES -->
+    <text x="260" y="38" text-anchor="middle" fill="#F4F1EA" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="12" font-weight="400">
+      LOS MEJORES
+    </text>
+
+    <!-- Línea superior -->
+    <line x1="58" y1="56" x2="462" y2="56" stroke="#F4F1EA" stroke-width="2" opacity="0.9"></line>
+
+    <!-- ABOGADOS -->
+    <text x="260" y="128" text-anchor="middle" fill="#F4F1EA" font-family="Bodoni MT, Didot, Georgia, serif" font-size="82" font-weight="400" letter-spacing="-3">
+      ABOGADOS
+    </text>
+
+    <!-- Línea inferior -->
+    <line x1="58" y1="148" x2="462" y2="148" stroke="#F4F1EA" stroke-width="2" opacity="0.9"></line>
+
+    <!-- DE MÉXICO -->
+    <text x="260" y="180" text-anchor="middle" fill="#F4F1EA" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="10" font-weight="400">
+      DE MÉXICO
+    </text>
+
+    <!-- 2023 elegante -->
+    <text x="260" y="225" text-anchor="middle" fill="#D9B76A" font-family="Bodoni MT, Didot, Georgia, serif" font-size="34" font-style="italic" letter-spacing="6" opacity="0.95">
+      2023
+    </text>
+
+  </g>
+</svg>

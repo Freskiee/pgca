@@ -1,34 +1,40 @@
-import bestLawyersLogo from '../../assets/rankings/best-lawyers.svg'
-import legal500Logo from '../../assets/rankings/legal-500.png'
-import chambersLogo from '../../assets/rankings/chambers.svg'
-import leadersLeagueLogo from '../../assets/rankings/leaders-league.png'
-import benchmarkLogo from '../../assets/rankings/benchmark-litigation.png'
+import mejoresAbogadosMexicoLogo from '../../assets/rankings/mejores-abogados-mexico.svg'
+import topsMexicoLogo from '../../assets/rankings/tops-mexico.svg'
+import mejores2023Logo from '../../assets/rankings/mejores_2023.svg'
+import mejores2024Logo from '../../assets/rankings/mejores_2024.svg'
+import mejores2025Logo from '../../assets/rankings/mejores_2025.svg'
+import mejores2026Logo from '../../assets/rankings/mejores_2026.svg'
 
 const rankingsLogos = [
   {
-    name: 'Best Lawyers',
-    image: bestLawyersLogo,
-    href: 'https://www.bestlawyers.com/',
+    name: 'Los Mejores Abogados de México',
+    image: mejoresAbogadosMexicoLogo,
+    href: 'https://topslosmejoresabogados.com/',
   },
   {
-    name: 'The Legal 500',
-    image: legal500Logo,
-    href: 'https://www.legal500.com/',
+    name: 'Tops México',
+    image: topsMexicoLogo,
+    href: 'https://www.instagram.com/p/DXpPpemll3B/',
   },
   {
-    name: 'Chambers and Partners',
-    image: chambersLogo,
-    href: 'https://chambers.com/',
+    name: 'Edición 2023',
+    image: mejores2023Logo,
+    href: 'https://topslosmejoresabogados.com/suplemento-2023/',
   },
   {
-    name: 'Leaders League',
-    image: leadersLeagueLogo,
-    href: 'https://www.leadersleague.com/',
+    name: 'Edición 2024',
+    image: mejores2024Logo,
+    href: 'https://topslosmejoresabogados.com/suplemento-2024/',
   },
   {
-    name: 'Benchmark Litigation',
-    image: benchmarkLogo,
-    href: 'https://benchmarklitigation.com/',
+    name: 'Edición 2025',
+    image: mejores2025Logo,
+    href: 'https://topslosmejoresabogados.com/suplemento-2025/',
+  },
+  {
+    name: 'Edición 2026',
+    image: mejores2026Logo,
+    href: 'https://topslosmejoresabogados.com/top-ranking/',
   },
 ]
 
@@ -40,12 +46,13 @@ const RankingsSection = () => {
           <span className="rankings-section__eyebrow">Reconocimientos</span>
 
           <h2 className="rankings-section__title">
-            Presencia en directorios de referencia
+            Menciones en directorios editoriales de México
           </h2>
 
           <p className="rankings-section__description">
-            Espacios editoriales y plataformas internacionales que distinguen
-            trayectorias construidas con rigor, consistencia y visión profesional.
+            Presencia en las ediciones de Tops México y Los Mejores Abogados de
+            México, una selección editorial que distingue trayectorias jurídicas
+            por su práctica profesional, constancia y reputación.
           </p>
         </div>
 
@@ -59,13 +66,13 @@ const RankingsSection = () => {
                 rel="noreferrer"
                 className={`rankings-section__logo-link rankings-section__logo-link--${index + 1}`}
                 aria-label={item.name}
+                title={item.name}
               >
                 <img
                   src={item.image}
                   alt={item.name}
                   className="rankings-section__logo-image"
                 />
-                <span className="rankings-section__logo-name">{item.name}</span>
               </a>
             ))}
           </div>
@@ -75,4 +82,4 @@ const RankingsSection = () => {
   )
 }
 
-export default RankingsSection;
+export default RankingsSection
