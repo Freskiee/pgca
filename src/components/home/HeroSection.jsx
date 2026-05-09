@@ -76,9 +76,6 @@ const HeroSection = () => {
         <div className="hero-section__layout">
           <div className="hero-section__content">
             <div className="hero-section__content-box">
-              <span className="hero-section__eyebrow">
-                Asesoría legal y contable
-              </span>
 
               <h1 className="hero-section__title">{title}</h1>
 

@@ -116,7 +116,6 @@ const PracticeAreasSection = () => {
                 <div className="practice-areas-section__banner-overlay" />
                 <div className="pgca-container practice-areas-section__banner-content">
                     <div className="practice-areas-section__banner-copy">
-                        <span className="practice-areas-section__eyebrow">Áreas principales</span>
                         <h2 className="practice-areas-section__hero-title">{title}</h2>
                         <p className="practice-areas-section__hero-text">
                             Soluciones legales y contables estructuradas con una visión estratégica,

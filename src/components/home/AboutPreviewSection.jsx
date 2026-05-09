@@ -1,278 +1,106 @@
-import { useEffect, useMemo, useState } from 'react'
-import { siteContent } from '../../data/siteContent'
+import { useEffect, useRef, useState } from 'react'
 
 const teamMembers = [
     {
         id: 1,
-        name: 'Alberto L. Cardoso',
-        credentials: 'L.C, E. F. y M.D.A.F',
+        name: 'José Alberto López Cardoso',
+        credentials: 'L.C., E.F. y M.D.A.F.',
         role: 'Socio Fiscal',
+        area: 'Consultoría fiscal, patrimonial y de negocios',
         image:
             'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Contaduría',
-            'Especialidad en Finanzas',
-            'Maestría en Dirección y Administración Fiscal',
-        ],
-        experience: [
-            'Más de 15 años en consultoría fiscal y acompañamiento estratégico.',
-            'Asesoría a empresas en cumplimiento, estructura financiera y prevención de riesgos.',
-            'Coordinación de asuntos fiscales con enfoque integral y visión de negocio.',
-        ],
-        languages: ['Español', 'Inglés'],
         phone: '55 4027 6991',
         email: 'alberto@pgca.com',
         linkedin: 'https://linkedin.com/in/alberto-cardoso',
+        biography:
+            'Especialista en consultoría y asesoría fiscal, patrimonial y de negocios, derecho fiscal, asesoría contable y financiera. Cuenta con más de 17 años de trayectoria profesional, asesorando empresas nacionales e internacionales en proyectos de reestructura corporativa, fusiones, escisiones, optimización financiera, contable y fiscal. Ha participado en estrategias de recuperación de saldos a favor por montos relevantes en diversos sectores empresariales, manteniendo como eje principal la protección patrimonial de sus clientes. También se ha desempeñado como catedrático en materia fiscal en distintas universidades a nivel nacional.',
     },
     {
         id: 2,
         name: 'Alejandro E. Guerrero Silva',
         credentials: 'Licenciado en Derecho',
-        role: 'Socio',
+        role: 'Socio · Derecho Penal',
+        area: 'Defensa penal, crisis y asuntos complejos',
         image:
             'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Derecho',
-            'Diplomado en Litigio Estratégico',
-            'Actualización en práctica corporativa y consultiva',
-        ],
-        experience: [
-            'Experiencia en atención de asuntos jurídicos complejos y asesoría estratégica.',
-            'Participación en revisión contractual, análisis de riesgos y defensa preventiva.',
-            'Acompañamiento cercano a clientes en decisiones de operación y estructura.',
-        ],
-        languages: ['Español', 'Inglés'],
         phone: '55 4871 5443',
         email: 'alejandro@pgca.com',
         linkedin: 'https://linkedin.com/in/alejandro-guerrero',
+        biography:
+            'Licenciado en Derecho por la Barra Nacional de Abogados. Especialista en Derecho Procesal Penal y Maestro en Ciencias Penales por la Universidad Anáhuac Norte. Su práctica se centra en la defensa penal, la negociación de conflictos complejos y el manejo de crisis, con un enfoque orientado a la contención de riesgos, el control procesal y la resolución estratégica de asuntos de alta complejidad.',
     },
     {
         id: 3,
-        name: 'Lic. Alfonso Yañez Peregrina',
+        name: 'Alfonso Yáñez Peregrina',
         credentials: 'Licenciado en Derecho',
-        role: 'Socio',
+        role: 'Socio · Derecho Fiscal',
+        area: 'Litigio fiscal, administrativo y prevención de riesgos',
         image:
             'https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Derecho',
-            'Especialidad en asesoría jurídica empresarial',
-            'Formación continua en cumplimiento y estrategia legal',
-        ],
-        experience: [
-            'Participación en asuntos corporativos, civiles y de consultoría jurídica.',
-            'Acompañamiento profesional en decisiones preventivas y atención personalizada.',
-            'Enfoque orientado a claridad, orden documental y estrategia.',
-        ],
-        languages: ['Español'],
         phone: '55 3056 0190',
         email: 'poncho@pgca.com',
         linkedin: 'https://linkedin.com/in/alfonso-yanez',
-    },
-    {
-        id: 4,
-        name: 'Eunice G. Guzman C.',
-        credentials: 'Licenciada en Derecho',
-        role: 'Abogada',
-        image:
-            'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Derecho',
-            'Diplomado en técnica jurídica y redacción legal',
-            'Actualización en práctica consultiva',
-        ],
-        experience: [
-            'Atención de expedientes, seguimiento procesal y apoyo en consultoría.',
-            'Elaboración y revisión de documentos jurídicos con enfoque técnico.',
-            'Participación activa en atención a clientes y gestión de asuntos.',
-        ],
-        languages: ['Español', 'Inglés'],
-        phone: '55 7448 0573',
-        email: 'eunice@pgca.com',
-        linkedin: 'https://linkedin.com/in/eunice-guzman',
-    },
-    {
-        id: 5,
-        name: 'Mauricio Álvarez Morfín',
-        credentials: 'Contador Público',
-        role: 'Contador',
-        image:
-            'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Contaduría',
-            'Especialidad en control financiero',
-            'Actualización en normatividad contable y fiscal',
-        ],
-        experience: [
-            'Supervisión de procesos contables, conciliaciones y control operativo.',
-            'Apoyo en reporteo financiero y cumplimiento administrativo.',
-            'Participación en orden y seguimiento documental para clientes.',
-        ],
-        languages: ['Español'],
-        phone: '55 6574 6898',
-        email: 'mauricio@pgca.com',
-        linkedin: 'https://linkedin.com/in/mauricio-alvarez',
-    },
-    {
-        id: 6,
-        name: 'Sandra Valenzuela Arellano',
-        credentials: 'Licenciada en Derecho',
-        role: 'Abogada',
-        image:
-            'https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop',
-        education: [
-            'Licenciatura en Derecho',
-            'Formación en contratos y cumplimiento',
-            'Diplomado en argumentación jurídica',
-        ],
-        experience: [
-            'Atención a asuntos consultivos y revisión de instrumentos jurídicos.',
-            'Seguimiento de procesos internos y preparación documental.',
-            'Acompañamiento profesional con enfoque ordenado y cercano.',
-        ],
-        languages: ['Español', 'Inglés'],
-        phone: '55 1127 7750',
-        email: 'sandra@pgca.com',
-        linkedin: 'https://linkedin.com/in/sandra-valenzuela',
+        biography:
+            'Licenciado en Derecho por la Barra Nacional de Abogados. Cuenta con Maestría en Derecho Administrativo y Fiscal por la misma institución, así como con Especialidad en Prevención de Lavado de Dinero y Financiamiento al Terrorismo por la Universidad Panamericana. Actualmente cursa la Licenciatura en Contabilidad y Finanzas en la Escuela Bancaria y Comercial. Su práctica se caracteriza por su experiencia en procedimientos fiscales complejos, gestión de contingencias y estructuración estratégica, con enfoque en control técnico, litigio contra autoridades administrativas y fiscales, mitigación de riesgos y defensa integral fiscal, corporativa y administrativa.',
     },
 ]
 
-const getCardsPerView = (width) => {
-    if (width <= 768) return 1
-    if (width <= 1180) return 2
-    return 3
-}
+const AUTO_SLIDE_MS = 9000
+const TRANSITION_MS = 900
 
-const AUTO_MS = 3400
 const normalizePhoneHref = (phone) => `tel:+52${phone.replace(/\D/g, '')}`
 
+const isTouchLikeDevice = () => {
+    if (typeof window === 'undefined') return false
+
+    return (
+        window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
+        'ontouchstart' in window ||
+        navigator.maxTouchPoints > 0
+    )
+}
+
 const AboutPreviewSection = () => {
-    const { title, description } = siteContent.aboutPreview
-
-    const initialCardsPerView =
-        typeof window !== 'undefined' ? getCardsPerView(window.innerWidth) : 3
-
-    const [cardsPerView, setCardsPerView] = useState(initialCardsPerView)
-    const [currentIndex, setCurrentIndex] = useState(initialCardsPerView)
-    const [isAnimating, setIsAnimating] = useState(true)
-    const [isPaused, setIsPaused] = useState(false)
+    const [currentIndex, setCurrentIndex] = useState(0)
     const [activeMember, setActiveMember] = useState(null)
     const [previewMemberId, setPreviewMemberId] = useState(null)
-    const [isTouchDevice, setIsTouchDevice] = useState(false)
+    const [isPaused, setIsPaused] = useState(false)
 
-    const clonesHead = useMemo(() => teamMembers.slice(0, cardsPerView), [cardsPerView])
-    const clonesTail = useMemo(() => teamMembers.slice(-cardsPerView), [cardsPerView])
+    const transitionTimeoutRef = useRef(null)
 
-    const carouselItems = useMemo(
-        () => [...clonesTail, ...teamMembers, ...clonesHead],
-        [clonesTail, clonesHead]
-    )
+    const currentMember = teamMembers[currentIndex]
+    const prevIndex = currentIndex === 0 ? teamMembers.length - 1 : currentIndex - 1
+    const nextIndex = currentIndex === teamMembers.length - 1 ? 0 : currentIndex + 1
 
-    useEffect(() => {
-        const checkTouchDevice = () => {
-            const hasTouch =
-                window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
-                'ontouchstart' in window ||
-                navigator.maxTouchPoints > 0
+    const prevMember = teamMembers[prevIndex]
+    const nextMember = teamMembers[nextIndex]
 
-            setIsTouchDevice(hasTouch)
-
-            const nextCards = getCardsPerView(window.innerWidth)
-
-            setCardsPerView((prevCards) => {
-                if (prevCards !== nextCards) {
-                    setCurrentIndex(nextCards)
-                    setIsAnimating(false)
-                }
-                return nextCards
-            })
-        }
-
-        checkTouchDevice()
-        window.addEventListener('resize', checkTouchDevice)
-
-        return () => window.removeEventListener('resize', checkTouchDevice)
-    }, [])
-
-    useEffect(() => {
-        if (activeMember) {
-            document.body.style.overflow = 'hidden'
-        } else {
-            document.body.style.overflow = ''
-        }
-
-        return () => {
-            document.body.style.overflow = ''
-        }
-    }, [activeMember])
-
-    useEffect(() => {
-        if (isPaused || activeMember) return
-
-        const interval = window.setInterval(() => {
-            setIsAnimating(true)
-            setCurrentIndex((prev) => prev + 1)
-        }, AUTO_MS)
-
-        return () => window.clearInterval(interval)
-    }, [isPaused, activeMember])
-
-    useEffect(() => {
-        const onEsc = (event) => {
-            if (event.key === 'Escape') {
-                setActiveMember(null)
-                setPreviewMemberId(null)
-            }
-        }
-
-        window.addEventListener('keydown', onEsc)
-        return () => window.removeEventListener('keydown', onEsc)
-    }, [])
-
-    useEffect(() => {
-        if (!isAnimating) {
-            const raf1 = requestAnimationFrame(() => {
-                const raf2 = requestAnimationFrame(() => setIsAnimating(true))
-                return () => cancelAnimationFrame(raf2)
-            })
-            return () => cancelAnimationFrame(raf1)
-        }
-    }, [isAnimating])
-
-    const handleTransitionEnd = () => {
-        if (currentIndex >= teamMembers.length + cardsPerView) {
-            setIsAnimating(false)
-            setCurrentIndex(cardsPerView)
-        }
-
-        if (currentIndex <= cardsPerView - 1) {
-            setIsAnimating(false)
-            setCurrentIndex(teamMembers.length + cardsPerView - 1)
-        }
+    const changeToIndex = (nextValue) => {
+        setPreviewMemberId(null)
+        setCurrentIndex(nextValue)
     }
 
-    const goPrev = () => {
-        setIsAnimating(true)
-        setCurrentIndex((prev) => prev - 1)
+    const goToPrev = (event) => {
+        event?.stopPropagation()
+        setCurrentIndex(
+            (prev) => (prev - 1 + teamMembers.length) % teamMembers.length
+        )
+        setPreviewMemberId(null)
     }
 
-    const goNext = () => {
-        setIsAnimating(true)
-        setCurrentIndex((prev) => prev + 1)
+    const goToNext = (event) => {
+        event?.stopPropagation()
+        setCurrentIndex((prev) => (prev + 1) % teamMembers.length)
+        setPreviewMemberId(null)
     }
 
-    const handleMemberCardClick = (member) => {
-        if (!isTouchDevice) {
-            setActiveMember(member)
-            setPreviewMemberId(member.id)
+    const handleCenterClick = () => {
+        if (isTouchLikeDevice() && previewMemberId !== currentMember.id) {
+            setPreviewMemberId(currentMember.id)
             return
         }
 
-        if (previewMemberId !== member.id) {
-            setPreviewMemberId(member.id)
-            return
-        }
-
-        setActiveMember(member)
+        setActiveMember(currentMember)
     }
 
     const handleCloseModal = () => {
@@ -280,11 +108,39 @@ const AboutPreviewSection = () => {
         setPreviewMemberId(null)
     }
 
-    const normalizedIndex =
-        ((currentIndex - cardsPerView) % teamMembers.length + teamMembers.length) %
-        teamMembers.length
+    useEffect(() => {
+        if (isPaused || activeMember) return
 
-    const translate = `translateX(-${(100 / cardsPerView) * currentIndex}%)`
+        const interval = window.setInterval(() => {
+            setCurrentIndex((prev) => (prev + 1) % teamMembers.length)
+            setPreviewMemberId(null)
+        }, AUTO_SLIDE_MS)
+
+        return () => window.clearInterval(interval)
+    }, [isPaused, activeMember])
+
+    useEffect(() => {
+        document.body.style.overflow = activeMember ? 'hidden' : ''
+
+        return () => {
+            document.body.style.overflow = ''
+        }
+    }, [activeMember])
+
+    useEffect(() => {
+        const handleEscape = (event) => {
+            if (event.key === 'Escape') {
+                handleCloseModal()
+            }
+        }
+
+        window.addEventListener('keydown', handleEscape)
+
+        return () => {
+            window.removeEventListener('keydown', handleEscape)
+            window.clearTimeout(transitionTimeoutRef.current)
+        }
+    }, [])
 
     return (
         <>
@@ -295,92 +151,95 @@ const AboutPreviewSection = () => {
                     <div className="pgca-container about-parallax-section__hero-content">
                         <div className="about-parallax-section__content-wrap about-parallax-section__content-wrap--team">
                             <div className="about-parallax-section__intro">
-                                <p className="about-parallax-section__eyebrow">Sobre nosotros</p>
-                                <h2 className="about-parallax-section__hero-title">{title}</h2>
-                                <p className="about-parallax-section__description">{description}</p>
+
+                                <h2 className="about-parallax-section__hero-title">
+                                    Un equipo construido desde la experiencia y la estrategia
+                                </h2>
+
+                                <p className="about-parallax-section__description">
+                                    En Peregrina, Guerrero, Cardoso & Asociados reunimos especialistas
+                                    en materia penal, fiscal, administrativa y corporativa, con
+                                    trayectoria en la atención de asuntos complejos, consultoría
+                                    estratégica y defensa integral para empresas y particulares.
+                                </p>
                             </div>
 
                             <div
-                                className="about-team-carousel"
+                                className="about-spotlight"
                                 onMouseEnter={() => setIsPaused(true)}
                                 onMouseLeave={() => setIsPaused(false)}
                             >
-                                <div className="about-team-carousel__shell">
+                                <button
+                                    type="button"
+                                    className="about-spotlight__side about-spotlight__side--left"
+                                    onClick={goToPrev}
+                                    aria-label={`Ver a ${prevMember.name}`}
+                                >
+                                    <img src={prevMember.image} alt="" />
+                                </button>
+
+                                <article
+                                    className={`about-spotlight__main ${previewMemberId === currentMember.id ? 'is-selected' : ''
+                                        }`}
+                                >
                                     <button
                                         type="button"
-                                        className="about-team-carousel__nav about-team-carousel__nav--prev"
-                                        onClick={goPrev}
+                                        className="about-spotlight__main-button"
+                                        onClick={handleCenterClick}
+                                        aria-label={`Ver perfil de ${currentMember.name}`}
+                                    >
+                                        <img
+                                            src={currentMember.image}
+                                            alt={currentMember.name}
+                                            className="about-spotlight__image"
+                                        />
+
+                                        <div className="about-spotlight__info">
+                                            <p className="about-spotlight__role">{currentMember.role}</p>
+                                            <h3 className="about-spotlight__name">{currentMember.name}</h3>
+                                        </div>
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        className="about-spotlight__arrow about-spotlight__arrow--left"
+                                        onClick={goToPrev}
                                         aria-label="Anterior"
                                     >
-                                        ‹
+                                        <span>‹</span>
                                     </button>
-
-                                    <div className="about-team-carousel__viewport">
-                                        <div
-                                            className={`about-team-carousel__track ${isAnimating ? 'is-animating' : 'is-static'}`}
-                                            style={{ transform: translate }}
-                                            onTransitionEnd={handleTransitionEnd}
-                                        >
-                                            {carouselItems.map((member, index) => {
-                                                const isSelected = activeMember?.id === member.id
-                                                const isPreviewed = previewMemberId === member.id
-
-                                                return (
-                                                    <article
-                                                        key={`${member.id}-${index}`}
-                                                        className={`about-team-card ${isSelected || isPreviewed ? 'is-selected' : ''}`}
-                                                        style={{ width: `${100 / cardsPerView}%` }}
-                                                    >
-                                                        <button
-                                                            type="button"
-                                                            className="about-team-card__button"
-                                                            onClick={() => handleMemberCardClick(member)}
-                                                            aria-label={`Ver perfil de ${member.name}`}
-                                                        >
-                                                            <div className="about-team-card__image-wrap">
-                                                                <img
-                                                                    src={member.image}
-                                                                    alt={member.name}
-                                                                    className="about-team-card__image"
-                                                                />
-
-                                                                <div className="about-team-card__overlay">
-                                                                    <h3 className="about-team-card__name">{member.name}</h3>
-                                                                </div>
-                                                            </div>
-
-                                                            <div className="about-team-card__content">
-                                                                <p className="about-team-card__role">{member.role}</p>
-                                                            </div>
-                                                        </button>
-                                                    </article>
-                                                )
-                                            })}
-                                        </div>
-                                    </div>
 
                                     <button
                                         type="button"
-                                        className="about-team-carousel__nav about-team-carousel__nav--next"
-                                        onClick={goNext}
+                                        className="about-spotlight__arrow about-spotlight__arrow--right"
+                                        onClick={goToNext}
                                         aria-label="Siguiente"
                                     >
-                                        ›
+                                        <span>›</span>
                                     </button>
-                                </div>
+                                </article>
 
-                                <div className="about-team-carousel__dots">
-                                    {teamMembers.map((member, dotIndex) => (
+                                <button
+                                    type="button"
+                                    className="about-spotlight__side about-spotlight__side--right"
+                                    onClick={goToNext}
+                                    aria-label={`Ver a ${nextMember.name}`}
+                                >
+                                    <img src={nextMember.image} alt="" />
+                                </button>
+
+                                <div className="about-spotlight__dots">
+                                    {teamMembers.map((member, index) => (
                                         <button
                                             key={member.id}
                                             type="button"
-                                            className={`about-team-carousel__dot ${normalizedIndex === dotIndex ? 'is-active' : ''}`}
-                                            onClick={() => {
-                                                setIsAnimating(true)
-                                                setCurrentIndex(dotIndex + cardsPerView)
-                                                setPreviewMemberId(null)
+                                            className={`about-spotlight__dot ${index === currentIndex ? 'is-active' : ''
+                                                }`}
+                                            onClick={(event) => {
+                                                event.stopPropagation()
+                                                changeToIndex(index)
                                             }}
-                                            aria-label={`Ir a ${member.name}`}
+                                            aria-label={`Ver a ${member.name}`}
                                         />
                                     ))}
                                 </div>
@@ -412,56 +271,6 @@ const AboutPreviewSection = () => {
                         </button>
 
                         <div className="about-team-modal__layout">
-                            <aside className="about-team-modal__sidebar">
-                                <div className="about-team-modal__top">
-                                    <p className="about-team-modal__eyebrow">Perfil profesional</p>
-                                    <h3 className="about-team-modal__name">{activeMember.name}</h3>
-                                    <p className="about-team-modal__credentials">{activeMember.credentials}</p>
-                                    <p className="about-team-modal__role">{activeMember.role}</p>
-                                </div>
-
-                                <div className="about-team-modal__grid">
-                                    <div className="about-team-modal__block">
-                                        <h4>Educación</h4>
-                                        <ul>
-                                            {activeMember.education.map((item) => (
-                                                <li key={item}>{item}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="about-team-modal__block">
-                                        <h4>Experiencia</h4>
-                                        <ul>
-                                            {activeMember.experience.map((item) => (
-                                                <li key={item}>{item}</li>
-                                            ))}
-                                        </ul>
-                                    </div>
-
-                                    <div className="about-team-modal__block">
-                                        <h4>Idiomas</h4>
-                                        <p>{activeMember.languages.join(' · ')}</p>
-                                    </div>
-
-                                    <div className="about-team-modal__block">
-                                        <h4>Contacto</h4>
-                                        <a href={normalizePhoneHref(activeMember.phone)}>
-                                            <i className="bi bi-telephone-fill" />
-                                            {activeMember.phone}
-                                        </a>
-                                        <a href={`mailto:${activeMember.email}`}>
-                                            <i className="bi bi-envelope-fill" />
-                                            {activeMember.email}
-                                        </a>
-                                        <a href={activeMember.linkedin} target="_blank" rel="noreferrer">
-                                            <i className="bi bi-linkedin" />
-                                            LinkedIn
-                                        </a>
-                                    </div>
-                                </div>
-                            </aside>
-
                             <div className="about-team-modal__photo-wrap">
                                 <img
                                     src={activeMember.image}
@@ -469,6 +278,47 @@ const AboutPreviewSection = () => {
                                     className="about-team-modal__photo"
                                 />
                             </div>
+
+                            <aside className="about-team-modal__content">
+                                <p className="about-team-modal__eyebrow">Perfil profesional</p>
+
+                                <h3 className="about-team-modal__name">{activeMember.name}</h3>
+
+                                <p className="about-team-modal__credentials">
+                                    {activeMember.credentials}
+                                </p>
+
+                                <p className="about-team-modal__role">{activeMember.role}</p>
+
+                                <div className="about-team-modal__divider" />
+
+                                <p className="about-team-modal__area">{activeMember.area}</p>
+
+                                <p className="about-team-modal__biography">
+                                    {activeMember.biography}
+                                </p>
+
+                                <div className="about-team-modal__contact">
+                                    <a href={normalizePhoneHref(activeMember.phone)}>
+                                        <i className="bi bi-telephone-fill" />
+                                        {activeMember.phone}
+                                    </a>
+
+                                    <a href={`mailto:${activeMember.email}`}>
+                                        <i className="bi bi-envelope-fill" />
+                                        {activeMember.email}
+                                    </a>
+
+                                    <a
+                                        href={activeMember.linkedin}
+                                        target="_blank"
+                                        rel="noreferrer"
+                                    >
+                                        <i className="bi bi-linkedin" />
+                                        LinkedIn
+                                    </a>
+                                </div>
+                            </aside>
                         </div>
                     </div>
                 </div>
