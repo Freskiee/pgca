@@ -3,7 +3,7 @@ import { siteContent } from '../../data/siteContent'
 import HeroMissionVisionTabs from './HeroMissionVisionTabs'
 
 import mejoresAbogadosMexicoLogo from '../../assets/rankings/mejores-abogados-mexico.svg'
-import topsMexico from '../../assets/rankings/tops-mexico.svg'
+import topsMexico from '../../assets/rankings/tops-mexico.png'
 import mejores2023Logo from '../../assets/rankings/mejores_2023.svg'
 import mejores2024Logo from '../../assets/rankings/mejores_2024.svg'
 import mejores2025Logo from '../../assets/rankings/mejores_2025.svg'
