@@ -29,15 +29,15 @@
   background:
     linear-gradient(
       180deg,
-      rgba(5, 12, 20, 0.402) 0%,
-      rgba(5, 12, 20, 0.394) 44%,
-      rgba(5, 12, 20, 0.76) 100%
+      rgba(5, 12, 20, 0.285) 0%,
+      rgba(5, 12, 20, 0.233) 44%,
+      rgba(5, 12, 20, 0.32) 100%
     ),
     linear-gradient(
       90deg,
-      rgba(5, 12, 20, 0.411) 0%,
+      rgba(5, 12, 20, 0.252) 0%,
       rgba(5, 12, 20, 0.057) 50%,
-      rgba(5, 12, 20, 0.42) 100%
+      rgba(5, 12, 20, 0.222) 100%
     );
   pointer-events: none;
 }
@@ -163,7 +163,7 @@
   }
 
   .rankings-section__bg-image {
-    opacity: 1;
+    opacity: 0.7;
     background-position: center;
   }
 
@@ -275,110 +275,89 @@
 
   .rankings-section__mobile-gesture {
     position: absolute;
-    bottom: -6px;
+    bottom: -8px;
     left: 50%;
-    width: 84px;
-    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255, 255, 255, 0.42);
     transform: translateX(-50%);
-    opacity: 0.38;
     pointer-events: none;
+    animation: rankingsSwipeHint 3.8s ease-in-out infinite;
   }
 
   .rankings-section__gesture-hand {
-    position: absolute;
-    left: 4px;
-    bottom: 5px;
-    width: 18px;
-    height: 22px;
-    border: 1.6px solid rgba(255, 255, 255, 0.78);
-    border-radius: 10px 10px 8px 8px;
-    transform: rotate(-10deg);
-    animation: rankingsFingerSwipe 3.8s ease-in-out infinite;
-    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.28));
+    font-size: 1.1rem;
+    line-height: 1;
+    transform: scaleY(1.1);
+    animation: rankingsSwipeHand 3.8s ease-in-out infinite;
   }
 
-  .rankings-section__gesture-hand::before {
-    content: "";
-    position: absolute;
-    left: 6px;
-    top: -13px;
-    width: 6px;
-    height: 17px;
-    border: 1.6px solid rgba(255, 255, 255, 0.78);
-    border-bottom: 0;
-    border-radius: 8px 8px 0 0;
-    background: rgba(255, 255, 255, 0.06);
+  .rankings-section__gesture-arrow {
+    font-size: 0.9rem;
+    line-height: 1;
+    color: rgba(215, 181, 109, 0.5);
   }
 
-  .rankings-section__gesture-hand::after {
-    content: "";
-    position: absolute;
-    left: 3px;
-    top: 6px;
-    width: 10px;
-    height: 1.5px;
-    background: rgba(255, 255, 255, 0.55);
-    box-shadow:
-      0 5px 0 rgba(255, 255, 255, 0.38),
-      0 10px 0 rgba(255, 255, 255, 0.24);
+  .rankings-section__gesture-arrow--left {
+    transform: translateY(-1px) translateX(2px);
   }
 
-  .rankings-section__gesture-line {
-    position: absolute;
-    left: 18px;
-    right: 8px;
-    bottom: 8px;
-    height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(215, 181, 109, 0.38),
-      transparent
-    );
-    transform-origin: left center;
-    animation: rankingsGestureTrail 3.8s ease-in-out infinite;
+  .rankings-section__gesture-arrow--right {
+    transform: translateY(-1px) translateX(-2px);
   }
 
-  @keyframes rankingsFingerSwipe {
+  @keyframes rankingsSwipeHint {
     0% {
-      transform: translateX(0) rotate(-10deg);
-      opacity: 0;
+      transform: translateX(-50%);
     }
 
-    16% {
-      opacity: 1;
+    10% {
+      transform: translateX(calc(-50% - 5px));
     }
 
-    58% {
-      transform: translateX(48px) rotate(4deg);
-      opacity: 1;
+    20% {
+      transform: translateX(calc(-50% + 5px));
     }
 
+    30% {
+      transform: translateX(calc(-50% - 5px));
+    }
+
+    40% {
+      transform: translateX(calc(-50% + 5px));
+    }
+
+    50%,
     100% {
-      transform: translateX(48px) rotate(4deg);
-      opacity: 0;
+      transform: translateX(-50%);
     }
   }
 
-  @keyframes rankingsGestureTrail {
+  @keyframes rankingsSwipeHand {
     0% {
-      transform: scaleX(0);
-      opacity: 0;
+      transform: scaleY(1.1) skewX(0deg);
     }
 
-    24% {
-      transform: scaleX(0.35);
-      opacity: 0.75;
+    10% {
+      transform: scaleY(1.1) skewX(5deg);
     }
 
-    68% {
-      transform: scaleX(1);
-      opacity: 0.5;
+    20% {
+      transform: scaleY(1.1) skewX(-5deg);
     }
 
+    30% {
+      transform: scaleY(1.1) skewX(5deg);
+    }
+
+    40% {
+      transform: scaleY(1.1) skewX(-5deg);
+    }
+
+    50%,
     100% {
-      transform: scaleX(1);
-      opacity: 0;
+      transform: scaleY(1.1) skewX(0deg);
     }
   }
 }

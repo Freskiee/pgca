@@ -106,9 +106,9 @@ const RankingsSection = () => {
           backgroundImage: `
             linear-gradient(
               180deg,
-              rgba(4, 10, 18, 0.84) 0%,
-              rgba(4, 10, 18, 0.56) 44%,
-              rgba(4, 10, 18, 0.9) 100%
+              rgba(4, 10, 18, 0.544) 0%,
+              rgba(4, 10, 18, 0.368) 44%,
+              rgba(4, 10, 18, 0.382) 100%
             ),
             url(${sociosPremioBg})
           `,
@@ -183,8 +183,9 @@ const RankingsSection = () => {
             </button>
 
             <div className="rankings-section__mobile-gesture" aria-hidden="true">
-              <span className="rankings-section__gesture-hand" />
-              <span className="rankings-section__gesture-line" />
+              <i className="bi bi-arrow-left rankings-section__gesture-arrow rankings-section__gesture-arrow--left" />
+              <i className="bi bi-hand-index-thumb rankings-section__gesture-hand" />
+              <i className="bi bi-arrow-right rankings-section__gesture-arrow rankings-section__gesture-arrow--right" />
             </div>
           </div>
         </div>
