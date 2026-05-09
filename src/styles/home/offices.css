@@ -1,187 +1,215 @@
 /* =========================================
-   OFFICES / COLLAGE + LIGHTBOX
+   OFFICES / PREMIUM EDITORIAL COLLAGE
 ========================================= */
+
 .offices-section {
-  background-color: var(--pgca-light);
+  position: relative;
+  background: var(--pgca-light);
   padding: 4.8rem 0 4.2rem;
   overflow: hidden;
 }
 
-.offices-collage {
-  width: 100%;
-  max-width: 1120px;
+.offices-wrapper {
+  width: min(97%, 1780px);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1.35fr 0.82fr 1.05fr 1.05fr;
-  grid-template-rows: 78px 210px 168px 84px;
-  column-gap: 0.7rem;
-  row-gap: 0.35rem;
-  align-items: start;
 }
 
-.offices-collage__item {
+/*
+  GRID — 5 cols × 6 rows
+
+  cols:  [1]0.72fr  [2]1.1fr  [3]1.15fr  [4]0.95fr  [5]0.9fr
+  rows:  [1]68px  [2]220px  [3]68px  [4]220px  [5]68px  [6]140px
+
+  card-1  → col1 / rows 1-5  (tall left pillar)
+  NUESTRAS→ cols 2-3 / row 1 (top, aligned bottom-left)
+  card-2  → cols 2-3 / row 2 (wide horizontal center-top)
+  card-3  → col4 / rows 1-2  (right upper)
+  OFICINAS→ col5 / rows 1-2  (far right, vertically centered)
+  ESPACIO → col3 / row 3     (center gap, aligned left)
+  card-5  → col2 / rows 3-6  (tall left-center bottom)
+  card-4  → cols 4-5 / rows 3-4 (right middle wide)
+  card-6  → col3 / row 4     (center bottom single)
+  TU      → col1 / row 6     (bottom left, top-aligned)
+  card-7  → cols 3-5 / rows 5-6 (big bottom strip)
+*/
+
+.offices-collage {
+  display: grid;
+  grid-template-columns: 0.72fr 1.1fr 1.15fr 0.95fr 0.9fr;
+  grid-template-rows: 68px 220px 68px 220px 68px 140px;
+  gap: 12px;
+  align-items: stretch;
+}
+
+/* ── CARDS ───────────────────────────── */
+
+.offices-card {
+  position: relative;
   overflow: hidden;
   border: none;
-  border-radius: 24px;
-  background: #ddd;
-  min-width: 0;
+  border-radius: 28px;
+  background: #dcdcdc;
   padding: 0;
   cursor: zoom-in;
-  appearance: none;
-  position: relative;
+  isolation: isolate;
+  min-width: 0;
 }
 
-.offices-collage__item::after {
-  content: '';
+.offices-card::after {
+  content: "";
   position: absolute;
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0) 55%,
-    rgba(0, 0, 0, 0.08) 100%
+    rgba(0, 0, 0, 0) 45%,
+    rgba(0, 0, 0, 0.14) 100%
   );
   opacity: 0;
-  transition: opacity 0.25s ease;
+  transition: opacity 0.35s ease;
   pointer-events: none;
 }
 
-.offices-collage__item:hover::after {
+.offices-card:hover::after {
   opacity: 1;
 }
 
-.offices-collage__image {
+.offices-card img {
   width: 100%;
   height: 100%;
-  display: block;
   object-fit: cover;
-  object-position: center;
-  transition: transform 0.4s ease;
+  display: block;
+  transition:
+    transform 0.8s cubic-bezier(0.19, 1, 0.22, 1),
+    filter 0.4s ease;
 }
 
-.offices-collage__item:hover .offices-collage__image {
+.offices-card:hover img {
   transform: scale(1.06);
+  filter: saturate(1.03);
 }
 
-.offices-collage__text {
+/* ── WORDS ───────────────────────────── */
+
+.offices-word {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: #34292c;
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 500;
-  line-height: 0.9;
-  text-align: center;
   pointer-events: none;
-}
-
-.offices-collage__text span {
-  font-size: clamp(3rem, 4.3vw, 4.8rem);
-  white-space: nowrap;
-}
-
-/* izquierda vertical */
-.offices-collage__item--1 {
-  grid-column: 1 / 2;
-  grid-row: 1 / 4;
-  height: 390px;
-}
-
-/* NUESTRAS */
-.offices-collage__text--top {
-  grid-column: 2 / 4;
-  grid-row: 1 / 2;
-  align-self: end;
-  justify-self: center;
-}
-
-/* imagen principal superior */
-.offices-collage__item--2 {
-  grid-column: 2 / 4;
-  grid-row: 2 / 3;
-  height: 210px;
-}
-
-/* imagen pequeña superior derecha */
-.offices-collage__item--3 {
-  grid-column: 4 / 5;
-  grid-row: 1 / 2;
-  height: 140px;
-  align-self: end;
-}
-
-/* OFICINAS */
-.offices-collage__text--right {
-  grid-column: 5 / 6;
-  grid-row: 1 / 2;
-  align-self: center;
-  justify-self: center;
-}
-
-/* TU */
-.offices-collage__text--left {
-  grid-column: 1 / 2;
-  grid-row: 4 / 5;
-  align-self: start;
-  justify-self: center;
-}
-
-/* imagen media abajo izquierda */
-.offices-collage__item--4 {
-  grid-column: 2 / 4;
-  grid-row: 3 / 4;
-  height: 168px;
-}
-
-/* imagen derecha vertical */
-.offices-collage__item--5 {
-  grid-column: 4 / 5;
-  grid-row: 2 / 4;
-  height: 280px;
-}
-
-/* imagen grande derecha */
-.offices-collage__item--6 {
-  grid-column: 5 / 6;
-  grid-row: 2 / 4;
-  height: 280px;
-}
-
-/* ESPACIO */
-.offices-collage__text--bottom {
-  grid-column: 2 / 4;
-  grid-row: 4 / 5;
-  align-self: start;
-  justify-self: center;
-  margin-top: 0;
-}
-
-/* imagen pequeña inferior derecha */
-.offices-collage__item--7 {
-  grid-column: 4 / 6;
-  grid-row: 4 / 5;
-  height: 104px;
-  align-self: start;
-  margin-top: -84px;
   z-index: 2;
 }
 
-/* ===== LIGHTBOX ===== */
+.offices-word span {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 500;
+  color: #37292d;
+  line-height: 0.82;
+  letter-spacing: -0.045em;
+  white-space: nowrap;
+  font-size: clamp(4rem, 5.2vw, 7.2rem);
+}
+
+/* ── GRID PLACEMENT ──────────────────── */
+
+/* Card 1: col 1, rows 1–5 */
+.offices-card--1 {
+  grid-column: 1 / 2;
+  grid-row: 1 / 6;
+}
+
+/* NUESTRAS: cols 2–3, row 1, bottom-left */
+.offices-word--nuestras {
+  grid-column: 2 / 4;
+  grid-row: 1 / 2;
+  align-items: flex-end;
+  justify-self: start;
+  padding-bottom: 2px;
+}
+
+/* Card 2: cols 2–3, row 2 */
+.offices-card--2 {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+}
+
+/* Card 3: col 4, rows 1–2 */
+.offices-card--3 {
+  grid-column: 4 / 5;
+  grid-row: 1 / 3;
+}
+
+/* OFICINAS: col 5, rows 1–2, vertically centered */
+.offices-word--oficinas {
+  grid-column: 5 / 6;
+  grid-row: 1 / 3;
+  align-items: center;
+  justify-self: start;
+}
+
+/* ESPACIO: col 3, row 3, vertically centered left */
+.offices-word--espacio {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+  align-items: center;
+  justify-self: start;
+}
+
+/* Card 5: col 2, rows 3–6 (tall) */
+.offices-card--5 {
+  grid-column: 2 / 3;
+  grid-row: 3 / 7;
+}
+
+/* Card 4: cols 4–5, rows 3–4 */
+.offices-card--4 {
+  grid-column: 4 / 6;
+  grid-row: 3 / 5;
+}
+
+/* Card 6: col 3, row 4 */
+.offices-card--6 {
+  grid-column: 3 / 4;
+  grid-row: 4 / 5;
+}
+
+/* TU: col 1, row 6, top-aligned */
+.offices-word--tu {
+  grid-column: 1 / 2;
+  grid-row: 6 / 7;
+  align-items: flex-start;
+  justify-self: center;
+  padding-top: 4px;
+  order: 10;
+}
+
+/* ESPACIO mantiene su posición en desktop aunque TU esté antes en el DOM */
+.offices-word--espacio {
+  order: 11;
+}
+
+/* Card 7: cols 3–5, rows 5–6 (big bottom) */
+.offices-card--7 {
+  grid-column: 3 / 6;
+  grid-row: 5 / 7;
+  order: 12;
+}
+
+/* ── LIGHTBOX ─────────────────────────── */
+
 .offices-lightbox {
   position: fixed;
   inset: 0;
   z-index: 5000;
-  background: rgba(12, 18, 24, 0.82);
+  background: rgba(8, 12, 18, 0.86);
+  backdrop-filter: blur(10px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
-  backdrop-filter: blur(6px);
+  padding: 2rem;
 }
 
 .offices-lightbox__dialog {
   position: relative;
-  max-width: min(1100px, 100%);
-  max-height: min(88vh, 100%);
+  max-width: min(1500px, 100%);
+  max-height: 92vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,99 +219,142 @@
   width: auto;
   height: auto;
   max-width: 100%;
-  max-height: 88vh;
+  max-height: 92vh;
   display: block;
-  border-radius: 20px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+  border-radius: 26px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
 }
 
 .offices-lightbox__close {
   position: absolute;
   top: -14px;
   right: -14px;
-  width: 44px;
-  height: 44px;
+  width: 50px;
+  height: 50px;
   border: none;
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.96);
-  color: #1f2b38;
+  color: #1c2430;
   font-size: 2rem;
-  line-height: 1;
   cursor: pointer;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
 }
 
-/* ===== Tablet ===== */
-@media (max-width: 1100px) {
+.offices-lightbox__close:hover {
+  transform: scale(1.08);
+}
+
+/* ── TABLET ──────────────────────────── */
+
+@media (max-width: 1200px) {
   .offices-section {
-    padding: 4.4rem 0 3.8rem;
+    padding: 4.2rem 0 3.8rem;
+  }
+
+  .offices-wrapper {
+    width: min(94%, 1100px);
   }
 
   .offices-collage {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
-    gap: 12px;
-    max-width: 100%;
+    gap: 14px;
   }
 
-  .offices-collage__item--1,
-  .offices-collage__item--2,
-  .offices-collage__item--3,
-  .offices-collage__item--4,
-  .offices-collage__item--5,
-  .offices-collage__item--6,
-  .offices-collage__item--7,
-  .offices-collage__text--top,
-  .offices-collage__text--right,
-  .offices-collage__text--left,
-  .offices-collage__text--bottom {
-    grid-column: auto;
-    grid-row: auto;
-    height: auto;
-    margin: 0;
-    align-self: center;
-    justify-self: center;
+  .offices-card,
+  .offices-word {
+    grid-column: auto !important;
+    grid-row: auto !important;
   }
 
-  .offices-collage__item {
-    height: 230px;
+  .offices-card {
+    min-height: 260px;
+    border-radius: 28px;
   }
 
-  .offices-collage__text span {
-    font-size: clamp(2.1rem, 5vw, 3.4rem);
+  .offices-card--1,
+  .offices-card--2,
+  .offices-card--4,
+  .offices-card--7 {
+    min-height: 320px;
+  }
+
+  .offices-word {
+    justify-content: center;
+    align-items: center !important;
+    padding: 0.25rem 0 !important;
+  }
+
+  .offices-word span {
+    font-size: clamp(3rem, 7vw, 5rem);
+    text-align: center;
     white-space: normal;
   }
 }
 
-/* ===== Mobile ===== */
+/* ── MOBILE ──────────────────────────── */
+
 @media (max-width: 768px) {
   .offices-section {
-    padding: 4rem 0 3.4rem;
+    padding: 3.8rem 0 3rem;
+  }
+
+  .offices-wrapper {
+    width: min(94%, 620px);
   }
 
   .offices-collage {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
 
-  .offices-collage__item {
-    height: 210px;
-    border-radius: 20px;
+  .offices-card {
+    height: 235px !important;
+    min-height: unset !important;
+    border-radius: 24px;
   }
 
-  .offices-collage__text span {
-    font-size: clamp(2rem, 10vw, 2.8rem);
+  .offices-card--1 {
+    height: 330px !important;
+  }
+
+  .offices-card--2,
+  .offices-card--4 {
+    height: 285px !important;
+  }
+
+  .offices-card--7 {
+    height: 250px !important;
+  }
+
+  .offices-word {
+    justify-content: center;
+    align-items: center !important;
+    padding: 0.05rem 0 !important;
+  }
+
+  .offices-word span {
+    font-size: clamp(2.7rem, 12vw, 4rem);
+    text-align: center;
+    line-height: 0.9;
   }
 
   .offices-lightbox {
-    padding: 16px;
+    padding: 1rem;
+  }
+
+  .offices-lightbox__image {
+    border-radius: 18px;
   }
 
   .offices-lightbox__close {
-    top: -10px;
+    width: 42px;
+    height: 42px;
+    top: -8px;
     right: -2px;
-    width: 40px;
-    height: 40px;
-    font-size: 1.8rem;
+    font-size: 1.6rem;
   }
 }

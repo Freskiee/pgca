@@ -1,37 +1,38 @@
+import ofi3 from '../assets/oficinas/ofi_3.jpg'
+import ofi12 from '../assets/oficinas/ofi_12.jpg'
+import ofi7 from '../assets/oficinas/ofi_7.jpg'
+import ofi9 from '../assets/oficinas/ofi_9.jpg'
+import ofi10 from '../assets/oficinas/ofi_10.jpg'
+import ofi14 from '../assets/oficinas/ofi_14.jpg'
+import ofi6 from '../assets/oficinas/ofi_6.jpg'
+
 export const offices = [
   {
-    image:
-      'https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop',
-    alt: 'Oficina vertical de cristal',
+    image: ofi3,
+    alt: 'Recepción del despacho con logotipo institucional',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1600&auto=format&fit=crop',
-    alt: 'Recepción elegante',
+    image: ofi12,
+    alt: 'Sala de juntas principal del despacho',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Sala de juntas pequeña',
+    image: ofi7,
+    alt: 'Oficina privada para atención personalizada',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1400&auto=format&fit=crop',
-    alt: 'Sala de juntas principal',
+    image: ofi9,
+    alt: 'Sala de reunión con vista exterior',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366412874-3415097a27e7?q=80&w=1200&auto=format&fit=crop',
-    alt: 'Oficina privada',
+    image: ofi10,
+    alt: 'Área de espera para clientes',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366858526-0766cadbe8fa?q=80&w=1400&auto=format&fit=crop',
-    alt: 'Área de oficina moderna',
+    image: ofi14,
+    alt: 'Detalle arquitectónico del muro de madera',
   },
   {
-    image:
-      'https://images.unsplash.com/photo-1497366412874-3415097a27e7?q=80&w=1200&auto=format&fit=crop',
-    alt: 'Detalle de pasillo corporativo',
+    image: ofi6,
+    alt: 'Área de trabajo con vista a la ciudad',
   },
 ]
