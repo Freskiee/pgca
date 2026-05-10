@@ -25,7 +25,7 @@ export const instagramPosts = [
     {
         id: 3,
         image: igPost3,
-        postUrl: 'https://www.instagram.com/p/DWezU1UBZDv/?hl=es',
+        postUrl: 'https://www.instagram.com/p/DYAd_QYlr_G/?hl=es&img_index=1',
         likes: '1,106',
         comments: '28',
         caption:
