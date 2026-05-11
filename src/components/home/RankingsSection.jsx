@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 import mejoresAbogadosMexicoLogo from '../../assets/rankings/mejores-abogados-mexico.svg'
 import topsMexicoLogo from '../../assets/rankings/tops-mexico.png'
@@ -21,6 +21,25 @@ const AUTO_ROTATE_MS = 6000
 const SWIPE_THRESHOLD = 70
 const TAP_TOLERANCE = 10
 
+/* Shimmer dorado que sigue el cursor dentro de cada card */
+const useMouseShimmer = () => {
+  const handleMouseMove = useCallback((e) => {
+    const el = e.currentTarget
+    const rect = el.getBoundingClientRect()
+    const x = ((e.clientX - rect.left) / rect.width) * 100
+    const y = ((e.clientY - rect.top) / rect.height) * 100
+    el.style.setProperty('--mouse-x', `${x}%`)
+    el.style.setProperty('--mouse-y', `${y}%`)
+  }, [])
+
+  const handleMouseLeave = useCallback((e) => {
+    e.currentTarget.style.setProperty('--mouse-x', '50%')
+    e.currentTarget.style.setProperty('--mouse-y', '50%')
+  }, [])
+
+  return { onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }
+}
+
 const RankingsSection = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const [direction, setDirection] = useState('next')
@@ -33,6 +52,8 @@ const RankingsSection = () => {
   const total = rankingsLogos.length
   const prevIndex = (activeIndex - 1 + total) % total
   const nextIndex = (activeIndex + 1) % total
+
+  const shimmer = useMouseShimmer()
 
   const goToPrev = () => {
     setDirection('prev')
@@ -53,9 +74,7 @@ const RankingsSection = () => {
 
   const handleTouchMove = (event) => {
     if (touchStartXRef.current === null) return
-
     touchDeltaXRef.current = touchStartXRef.current - event.touches[0].clientX
-
     if (Math.abs(touchDeltaXRef.current) > TAP_TOLERANCE) {
       wasSwipingRef.current = true
     }
@@ -63,18 +82,11 @@ const RankingsSection = () => {
 
   const handleTouchEnd = () => {
     const diff = touchDeltaXRef.current
-
     if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      if (diff > 0) {
-        goToNext()
-      } else {
-        goToPrev()
-      }
+      diff > 0 ? goToNext() : goToPrev()
     }
-
     touchStartXRef.current = null
     touchDeltaXRef.current = 0
-
     window.setTimeout(() => {
       setIsPaused(false)
       wasSwipingRef.current = false
@@ -82,18 +94,12 @@ const RankingsSection = () => {
   }
 
   const handleActiveClick = (event) => {
-    if (wasSwipingRef.current) {
-      event.preventDefault()
-    }
+    if (wasSwipingRef.current) event.preventDefault()
   }
 
   useEffect(() => {
     if (isPaused) return
-
-    const interval = window.setInterval(() => {
-      goToNext()
-    }, AUTO_ROTATE_MS)
-
+    const interval = window.setInterval(goToNext, AUTO_ROTATE_MS)
     return () => window.clearInterval(interval)
   }, [isPaused])
 
@@ -106,9 +112,9 @@ const RankingsSection = () => {
           backgroundImage: `
             linear-gradient(
               180deg,
-              rgba(4, 10, 18, 0.544) 0%,
-              rgba(4, 10, 18, 0.368) 44%,
-              rgba(4, 10, 18, 0.382) 100%
+              rgba(4, 10, 18, 0.60) 0%,
+              rgba(4, 10, 18, 0.40) 44%,
+              rgba(4, 10, 18, 0.55) 100%
             ),
             url(${sociosPremioBg})
           `,
@@ -131,6 +137,8 @@ const RankingsSection = () => {
         </div>
 
         <div className="rankings-section__logos-wrap">
+
+          {/* DESKTOP GRID */}
           <div className="rankings-section__logos-grid">
             {rankingsLogos.map((item) => (
               <a
@@ -140,12 +148,18 @@ const RankingsSection = () => {
                 rel="noreferrer"
                 className="rankings-section__logo-link"
                 aria-label={item.name}
+                {...shimmer}
               >
-                <img src={item.image} alt={item.name} className="rankings-section__logo-image" />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="rankings-section__logo-image"
+                />
               </a>
             ))}
           </div>
 
+          {/* MOBILE CAROUSEL */}
           <div
             className={`rankings-section__mobile-carousel rankings-section__mobile-carousel--${direction}`}
             onTouchStart={handleTouchStart}
@@ -170,7 +184,10 @@ const RankingsSection = () => {
               aria-label={rankingsLogos[activeIndex].name}
               onClick={handleActiveClick}
             >
-              <img src={rankingsLogos[activeIndex].image} alt={rankingsLogos[activeIndex].name} />
+              <img
+                src={rankingsLogos[activeIndex].image}
+                alt={rankingsLogos[activeIndex].name}
+              />
             </a>
 
             <button
@@ -188,6 +205,7 @@ const RankingsSection = () => {
               <i className="bi bi-arrow-right rankings-section__gesture-arrow rankings-section__gesture-arrow--right" />
             </div>
           </div>
+
         </div>
       </div>
     </section>

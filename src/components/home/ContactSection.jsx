@@ -5,7 +5,7 @@ import contactBg from '../../assets/oficinas/ofi_11.jpg'
 const CONTACT_INFO = {
   phoneDisplay: 'Ofi. (55) 9309 5640',
   phoneLink: 'tel:+525593095640',
-  emergencyPhoneLink: 'tel:+525593095640',
+  emergencyPhoneLink: 'tel:+525551998719',
   email: 'contacto@pgca.com.mx',
   mapsLink:
     'https://www.google.com/maps/search/?api=1&query=Av.%20Insurgentes%20Sur%201877%20Piso%208%20Guadalupe%20Inn%20%C3%81lvaro%20Obreg%C3%B3n%2001020%20CDMX',

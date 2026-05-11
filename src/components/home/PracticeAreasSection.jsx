@@ -151,9 +151,12 @@ const PracticeAreasSection = () => {
                                 onMouseMove={(event) => handleMouseMove(event, index)}
                             >
                                 <div className="practice-areas-card__inner">
-                                    <div className="practice-areas-card__topline" />
 
                                     <div className="practice-areas-card__content">
+                                        <div className="practice-areas-card__topbar">
+                                            <div className="practice-areas-card__topline" />
+                                        </div>
+
                                         <h3 className="practice-areas-card__title">
                                             {item.title}
                                         </h3>
@@ -185,6 +188,7 @@ const PracticeAreasSection = () => {
                                             <i className="bi bi-arrow-right" />
                                         </span>
                                     </div>
+
                                 </div>
                             </Link>
                         )

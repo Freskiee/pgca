@@ -11,8 +11,7 @@ export const teamMembers = [
         area: 'Consultoría fiscal, patrimonial y de negocios',
         image: jose_albertoImg,
         phone: '55 4027 6991',
-        email: 'alberto@pgca.com',
-        linkedin: 'https://linkedin.com/in/alberto-cardoso',
+        email: 'alberto@pgca.com.mx',
         biography:
             'Especialista en consultoría y asesoría fiscal, patrimonial y de negocios, derecho fiscal, asesoría contable y financiera. Cuenta con más de 17 años de trayectoria profesional, asesorando empresas nacionales e internacionales en proyectos de reestructura corporativa, fusiones, escisiones, optimización financiera, contable y fiscal. Ha participado en estrategias de recuperación de saldos a favor por montos relevantes en diversos sectores empresariales, manteniendo como eje principal la protección patrimonial de sus clientes. También se ha desempeñado como catedrático en materia fiscal en distintas universidades a nivel nacional.',
     },
@@ -24,8 +23,7 @@ export const teamMembers = [
         area: 'Defensa penal, crisis y asuntos complejos',
         image: alejandroImg,
         phone: '55 4871 5443',
-        email: 'alejandro@pgca.com',
-        linkedin: 'https://linkedin.com/in/alejandro-guerrero',
+        email: 'alejandro@pgca.com.mx',
         biography:
             'Licenciado en Derecho por la Barra Nacional de Abogados. Especialista en Derecho Procesal Penal y Maestro en Ciencias Penales por la Universidad Anáhuac Norte. Su práctica se centra en la defensa penal, la negociación de conflictos complejos y el manejo de crisis, con un enfoque orientado a la contención de riesgos, el control procesal y la resolución estratégica de asuntos de alta complejidad.',
     },
@@ -36,9 +34,8 @@ export const teamMembers = [
         role: 'Socio · Derecho Fiscal',
         area: 'Litigio fiscal, administrativo y prevención de riesgos',
         image: alfonsoImg,
-        phone: '55 3056 0190',
-        email: 'poncho@pgca.com',
-        linkedin: 'https://linkedin.com/in/alfonso-yanez',
+        phone: '55 9309 5640',
+        email: 'alfonsoyp@pgca.com.mx',
         biography:
             'Licenciado en Derecho por la Barra Nacional de Abogados. Cuenta con Maestría en Derecho Administrativo y Fiscal por la misma institución, así como con Especialidad en Prevención de Lavado de Dinero y Financiamiento al Terrorismo por la Universidad Panamericana. Actualmente cursa la Licenciatura en Contabilidad y Finanzas en la Escuela Bancaria y Comercial. Su práctica se caracteriza por su experiencia en procedimientos fiscales complejos, gestión de contingencias y estructuración estratégica, con enfoque en control técnico, litigio contra autoridades administrativas y fiscales, mitigación de riesgos y defensa integral fiscal, corporativa y administrativa.',
     },

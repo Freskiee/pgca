@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import alfonsoImg from '../../assets/socios/alfonso.png'
 import alejandroImg from '../../assets/socios/alejandro.png'
 import joseAlbertoImg from '../../assets/socios/jose_alberto.png'
@@ -13,8 +13,7 @@ const teamMembers = [
         image: joseAlbertoImg,
         imageFocus: 'center 24%',
         phone: '55 4027 6991',
-        email: 'alberto@pgca.com',
-        linkedin: 'https://linkedin.com/in/alberto-cardoso',
+        email: 'alberto@pgca.com.mx',
         biography:
             'Especialista en consultoría y asesoría fiscal, patrimonial y de negocios, derecho fiscal, asesoría contable y financiera. Cuenta con más de 17 años de trayectoria profesional, asesorando empresas nacionales e internacionales en proyectos de reestructura corporativa, fusiones, escisiones, optimización financiera, contable y fiscal. Ha participado en estrategias de recuperación de saldos a favor por montos relevantes en diversos sectores empresariales, manteniendo como eje principal la protección patrimonial de sus clientes. También se ha desempeñado como catedrático en materia fiscal en distintas universidades a nivel nacional.',
     },
@@ -27,8 +26,7 @@ const teamMembers = [
         image: alejandroImg,
         imageFocus: 'center 22%',
         phone: '55 4871 5443',
-        email: 'alejandro@pgca.com',
-        linkedin: 'https://linkedin.com/in/alejandro-guerrero',
+        email: 'alejandro@pgca.com.mx',
         biography:
             'Licenciado en Derecho por la Barra Nacional de Abogados. Especialista en Derecho Procesal Penal y Maestro en Ciencias Penales por la Universidad Anáhuac Norte. Su práctica se centra en la defensa penal, la negociación de conflictos complejos y el manejo de crisis, con un enfoque orientado a la contención de riesgos, el control procesal y la resolución estratégica de asuntos de alta complejidad.',
     },
@@ -40,17 +38,15 @@ const teamMembers = [
         area: 'Litigio fiscal, administrativo y prevención de riesgos',
         image: alfonsoImg,
         imageFocus: 'center 25%',
-        phone: '55 3056 0190',
-        email: 'poncho@pgca.com',
-        linkedin: 'https://linkedin.com/in/alfonso-yanez',
+        phone: '55 9309 5640',
+        email: 'alfonsoyp@pgca.com.mx',
         biography:
             'Licenciado en Derecho por la Barra Nacional de Abogados. Cuenta con Maestría en Derecho Administrativo y Fiscal por la misma institución, así como con Especialidad en Prevención de Lavado de Dinero y Financiamiento al Terrorismo por la Universidad Panamericana. Actualmente cursa la Licenciatura en Contabilidad y Finanzas en la Escuela Bancaria y Comercial. Su práctica se caracteriza por su experiencia en procedimientos fiscales complejos, gestión de contingencias y estructuración estratégica, con enfoque en control técnico, litigio contra autoridades administrativas y fiscales, mitigación de riesgos y defensa integral fiscal, corporativa y administrativa.',
     },
 ]
 
-const AUTO_SLIDE_MS = 9000
-const CHANGE_OUT_MS = 260
-const CHANGE_IN_MS = 620
+const AUTO_SLIDE_MS = 7500
+const SLIDE_MS = 760
 
 const normalizePhoneHref = (phone) => `tel:+52${phone.replace(/\D/g, '')}`
 
@@ -69,8 +65,9 @@ const AboutPreviewSection = () => {
     const [activeMember, setActiveMember] = useState(null)
     const [previewMemberId, setPreviewMemberId] = useState(null)
     const [isPaused, setIsPaused] = useState(false)
-    const [isChanging, setIsChanging] = useState(false)
+    const [isSliding, setIsSliding] = useState(false)
     const [slideDirection, setSlideDirection] = useState('next')
+    const [incomingIndex, setIncomingIndex] = useState(null)
 
     const changeTimeoutRef = useRef(null)
     const settleTimeoutRef = useRef(null)
@@ -82,27 +79,29 @@ const AboutPreviewSection = () => {
     const prevMember = teamMembers[prevIndex]
     const nextMember = teamMembers[nextIndex]
 
-    const clearChangeTimers = () => {
+    const clearChangeTimers = useCallback(() => {
         window.clearTimeout(changeTimeoutRef.current)
         window.clearTimeout(settleTimeoutRef.current)
-    }
+    }, [])
 
-    const changeToIndex = (nextValue, direction = 'next') => {
-        if (nextValue === currentIndex || isChanging) return
+    const changeToIndex = useCallback(
+        (nextValue, direction = 'next') => {
+            if (nextValue === currentIndex || isSliding) return
 
-        clearChangeTimers()
-        setPreviewMemberId(null)
-        setSlideDirection(direction)
-        setIsChanging(true)
+            clearChangeTimers()
+            setPreviewMemberId(null)
+            setSlideDirection(direction)
+            setIncomingIndex(nextValue)
+            setIsSliding(true)
 
-        changeTimeoutRef.current = window.setTimeout(() => {
-            setCurrentIndex(nextValue)
-
-            settleTimeoutRef.current = window.setTimeout(() => {
-                setIsChanging(false)
-            }, CHANGE_IN_MS)
-        }, CHANGE_OUT_MS)
-    }
+            changeTimeoutRef.current = window.setTimeout(() => {
+                setCurrentIndex(nextValue)
+                setIncomingIndex(null)
+                setIsSliding(false)
+            }, SLIDE_MS)
+        },
+        [currentIndex, isSliding, clearChangeTimers]
+    )
 
     const goToPrev = (event) => {
         event?.stopPropagation()
@@ -122,7 +121,7 @@ const AboutPreviewSection = () => {
     }
 
     const handleCenterClick = () => {
-        if (isChanging) return
+        if (isSliding) return
 
         if (isTouchLikeDevice() && previewMemberId !== currentMember.id) {
             setPreviewMemberId(currentMember.id)
@@ -132,13 +131,13 @@ const AboutPreviewSection = () => {
         setActiveMember(currentMember)
     }
 
-    const handleCloseModal = () => {
+    const handleCloseModal = useCallback(() => {
         setActiveMember(null)
         setPreviewMemberId(null)
-    }
+    }, [])
 
     useEffect(() => {
-        if (isPaused || activeMember || isChanging) return
+        if (isPaused || activeMember || isSliding) return
 
         const interval = window.setInterval(() => {
             const nextAutoIndex =
@@ -148,7 +147,7 @@ const AboutPreviewSection = () => {
         }, AUTO_SLIDE_MS)
 
         return () => window.clearInterval(interval)
-    }, [currentIndex, isPaused, activeMember, isChanging])
+    }, [currentIndex, isPaused, activeMember, isSliding, changeToIndex])
 
     useEffect(() => {
         document.body.style.overflow = activeMember ? 'hidden' : ''
@@ -171,7 +170,7 @@ const AboutPreviewSection = () => {
             window.removeEventListener('keydown', handleEscape)
             clearChangeTimers()
         }
-    }, [])
+    }, [clearChangeTimers, handleCloseModal])
 
     return (
         <>
@@ -195,7 +194,7 @@ const AboutPreviewSection = () => {
                             </div>
 
                             <div
-                                className={`about-spotlight ${isChanging ? 'is-changing' : ''
+                                className={`about-spotlight ${isSliding ? 'is-sliding' : ''
                                     } about-spotlight--${slideDirection}`}
                                 onMouseEnter={() => setIsPaused(true)}
                                 onMouseLeave={() => setIsPaused(false)}
@@ -223,12 +222,23 @@ const AboutPreviewSection = () => {
                                         onClick={handleCenterClick}
                                         aria-label={`Ver perfil de ${currentMember.name}`}
                                     >
-                                        <img
-                                            src={currentMember.image}
-                                            alt={currentMember.name}
-                                            className="about-spotlight__image"
-                                            style={{ objectPosition: currentMember.imageFocus }}
-                                        />
+                                        <div className="about-spotlight__image-stage">
+                                            <img
+                                                src={currentMember.image}
+                                                alt={currentMember.name}
+                                                className="about-spotlight__image about-spotlight__image--current"
+                                                style={{ objectPosition: currentMember.imageFocus }}
+                                            />
+
+                                            {incomingIndex !== null && (
+                                                <img
+                                                    src={teamMembers[incomingIndex].image}
+                                                    alt={teamMembers[incomingIndex].name}
+                                                    className="about-spotlight__image about-spotlight__image--incoming"
+                                                    style={{ objectPosition: teamMembers[incomingIndex].imageFocus }}
+                                                />
+                                            )}
+                                        </div>
 
                                         <div className="about-spotlight__info">
                                             <p className="about-spotlight__role">{currentMember.role}</p>
@@ -347,14 +357,6 @@ const AboutPreviewSection = () => {
                                         {activeMember.email}
                                     </a>
 
-                                    <a
-                                        href={activeMember.linkedin}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                    >
-                                        <i className="bi bi-linkedin" />
-                                        LinkedIn
-                                    </a>
                                 </div>
                             </aside>
                         </div>

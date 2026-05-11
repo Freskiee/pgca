@@ -2,7 +2,7 @@ const FloatingActions = () => {
     return (
         <div className="floating-actions">
             <a
-                href="https://wa.me/525500000000"
+                href="https://wa.me/525551998719"
                 target="_blank"
                 rel="noreferrer"
                 className="floating-actions__button floating-actions__button--whatsapp"
@@ -12,7 +12,7 @@ const FloatingActions = () => {
             </a>
 
             <a
-                href="tel:+525593095640"
+                href="tel:+525551998719"
                 className="floating-actions__button floating-actions__button--call"
                 aria-label="Llamada de emergencia"
             >

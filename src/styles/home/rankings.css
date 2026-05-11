@@ -1,14 +1,14 @@
 /* =========================================================
-   RANKINGS SECTION
+   RANKINGS SECTION — Luxury Editorial Dark
 ========================================================= */
 
 .rankings-section {
   position: relative;
   overflow: hidden;
-  padding: 140px 0 120px;
+  padding: 140px 0 130px;
   background:
-    radial-gradient(circle at top, rgba(191, 154, 84, 0.08), transparent 28%),
-    linear-gradient(135deg, #07111d 0%, #0a1625 30%, #102033 60%, #0a1522 100%);
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(191, 154, 84, 0.07) 0%, transparent 60%),
+    linear-gradient(160deg, #060d16 0%, #09131f 40%, #0d1b2a 70%, #07111b 100%);
 }
 
 .rankings-section__bg-image {
@@ -16,30 +16,41 @@
   inset: 0;
   background-size: cover;
   background-position: center;
-  opacity: 0.42;
-  filter: saturate(0.92) contrast(1.04);
+  opacity: 0.28;
+  filter: saturate(0.6) contrast(1.1) brightness(0.85);
   animation: rankingsBackgroundMove 24s ease-in-out infinite alternate;
   pointer-events: none;
+}
+
+.rankings-section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 120% 60% at 50% 100%, rgba(6, 13, 22, 0.85) 0%, transparent 70%),
+    radial-gradient(ellipse 120% 60% at 50% 0%, rgba(6, 13, 22, 0.6) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .rankings-section::after {
   content: "";
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(5, 12, 20, 0.285) 0%,
-      rgba(5, 12, 20, 0.233) 44%,
-      rgba(5, 12, 20, 0.32) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(5, 12, 20, 0.252) 0%,
-      rgba(5, 12, 20, 0.057) 50%,
-      rgba(5, 12, 20, 0.222) 100%
-    );
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(480px, 72%);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(191, 154, 84, 0.55) 30%,
+    rgba(215, 181, 109, 0.9) 50%,
+    rgba(191, 154, 84, 0.55) 70%,
+    transparent 100%
+  );
   pointer-events: none;
+  z-index: 2;
 }
 
 @keyframes rankingsBackgroundMove {
@@ -47,51 +58,45 @@
     transform: scale(1);
     background-position: center top;
   }
-
   to {
-    transform: scale(1.035);
+    transform: scale(1.04);
     background-position: center center;
   }
 }
 
 .rankings-section .pgca-container {
   position: relative;
-  z-index: 2;
+  z-index: 3;
 }
+
+/* =========================================================
+   HEADER
+========================================================= */
 
 .rankings-section__header {
-  max-width: 980px;
-  margin: 0 auto 72px;
+  max-width: 860px;
+  margin: 0 auto 80px;
   text-align: center;
-}
-
-.rankings-section__eyebrow {
-  display: inline-flex;
-  margin-bottom: 18px;
-  color: #d7b56d;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.42em;
-  text-transform: uppercase;
 }
 
 .rankings-section__title {
   margin: 0;
-  color: #f7f4ef;
-  font-size: clamp(2.7rem, 5vw, 5.8rem);
-  line-height: 0.96;
-  letter-spacing: -0.05em;
+  color: #f0ece5;
+  font-size: clamp(2.4rem, 4.5vw, 5rem);
+  line-height: 1.02;
+  letter-spacing: -0.04em;
   font-weight: 700;
-  text-shadow: 0 18px 38px rgba(0, 0, 0, 0.28);
+  text-shadow: 0 20px 48px rgba(0, 0, 0, 0.45);
 }
 
 .rankings-section__description {
-  max-width: 840px;
-  margin: 28px auto 0;
-  color: rgba(240, 240, 240, 0.82);
-  font-size: 1.12rem;
-  line-height: 1.95;
+  max-width: 720px;
+  margin: 26px auto 0;
+  color: rgba(220, 215, 205, 0.62);
+  font-size: 1.04rem;
+  line-height: 1.9;
   font-weight: 300;
+  letter-spacing: 0.01em;
 }
 
 /* =========================================================
@@ -105,48 +110,112 @@
 .rankings-section__logos-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 34px;
+  gap: 22px;
   align-items: stretch;
 }
 
 .rankings-section__logo-link {
   position: relative;
-  min-height: 170px;
+  min-height: 180px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 34px 22px;
+  padding: 40px 28px;
   text-decoration: none;
-  opacity: 0.82;
-  filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.32));
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.045) 0%,
+    rgba(255, 255, 255, 0.015) 100%
+  );
+  backdrop-filter: blur(24px) saturate(1.2);
+  -webkit-backdrop-filter: blur(24px) saturate(1.2);
+  border: 1px solid rgba(191, 154, 84, 0.18);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.06) inset,
+    0 28px 48px rgba(0, 0, 0, 0.38);
   transition:
-    transform 0.45s ease,
-    opacity 0.45s ease,
-    filter 0.45s ease;
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.5s ease,
+    background 0.5s ease;
+}
+
+/* Shimmer dorado que sigue el mouse */
+.rankings-section__logo-link::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(191, 154, 84, 0.13) 0%,
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+/* Línea gold en top al hover */
+.rankings-section__logo-link::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(215, 181, 109, 0.7),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
 }
 
 .rankings-section__logo-link:hover {
-  transform: translateY(-6px) scale(1.025);
+  transform: translateY(-8px) scale(1.02);
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.07) 0%,
+    rgba(255, 255, 255, 0.025) 100%
+  );
+  border-color: rgba(191, 154, 84, 0.42);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.09) inset,
+    0 36px 64px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(191, 154, 84, 0.12),
+    0 0 48px rgba(191, 154, 84, 0.08);
+}
+
+.rankings-section__logo-link:hover::before {
   opacity: 1;
-  filter: drop-shadow(0 22px 34px rgba(0, 0, 0, 0.38)) brightness(1.08);
+}
+
+.rankings-section__logo-link:hover::after {
+  opacity: 1;
 }
 
 .rankings-section__logo-image {
   position: relative;
   z-index: 2;
   width: auto;
-  max-width: 240px;
-  max-height: 94px;
+  max-width: 220px;
+  max-height: 90px;
   object-fit: contain;
-  opacity: 0.96;
+  filter: brightness(0.9) saturate(0.85);
   transition:
-    transform 0.45s ease,
-    opacity 0.45s ease;
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s ease;
 }
 
 .rankings-section__logo-link:hover .rankings-section__logo-image {
-  transform: scale(1.04);
-  opacity: 1;
+  transform: scale(1.05);
+  filter: brightness(1.08) saturate(1.05);
 }
 
 .rankings-section__mobile-carousel {
@@ -154,16 +223,16 @@
 }
 
 /* =========================================================
-   MOBILE CAROUSEL
+   MOBILE
 ========================================================= */
 
 @media (max-width: 575px) {
   .rankings-section {
-    padding: 110px 0 95px;
+    padding: 110px 0 100px;
   }
 
   .rankings-section__bg-image {
-    opacity: 0.7;
+    opacity: 0.5;
     background-position: center;
   }
 
@@ -172,15 +241,15 @@
   }
 
   .rankings-section__title {
-    font-size: clamp(2.3rem, 12vw, 3.7rem);
-    line-height: 0.95;
+    font-size: clamp(2.1rem, 11vw, 3.4rem);
+    line-height: 1.0;
   }
 
   .rankings-section__description {
-    margin-top: 22px;
-    font-size: 0.97rem;
-    line-height: 1.9;
-    padding-inline: 6px;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    line-height: 1.85;
+    padding-inline: 4px;
   }
 
   .rankings-section__logos-grid {
@@ -202,7 +271,7 @@
     padding: 0;
     width: min(74vw, 285px);
     min-height: 155px;
-    border-radius: 32px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -211,13 +280,13 @@
     backdrop-filter: blur(18px);
     background: linear-gradient(
       145deg,
-      rgba(255, 255, 255, 0.08),
-      rgba(255, 255, 255, 0.02)
+      rgba(255, 255, 255, 0.06),
+      rgba(255, 255, 255, 0.015)
     );
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(191, 154, 84, 0.22);
     box-shadow:
-      0 24px 54px rgba(0, 0, 0, 0.24),
-      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      0 24px 54px rgba(0, 0, 0, 0.32),
+      0 1px 0 rgba(255, 255, 255, 0.06) inset;
     transition:
       transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
       opacity 0.8s ease,
@@ -229,19 +298,19 @@
     position: absolute;
     inset: 0;
     background: radial-gradient(
-      circle at top,
-      rgba(215, 181, 109, 0.16),
-      transparent 56%
+      circle at 50% 0%,
+      rgba(191, 154, 84, 0.14),
+      transparent 60%
     );
-    opacity: 0.8;
+    opacity: 1;
   }
 
   .rankings-section__mobile-card img {
     position: relative;
     z-index: 2;
     width: auto;
-    max-width: 205px;
-    max-height: 84px;
+    max-width: 200px;
+    max-height: 82px;
     object-fit: contain;
     pointer-events: none;
   }
@@ -255,14 +324,14 @@
 
   .rankings-section__mobile-card--prev {
     z-index: 2;
-    opacity: 0.26;
+    opacity: 0.22;
     filter: blur(2px);
     transform: translateX(-64%) scale(0.82);
   }
 
   .rankings-section__mobile-card--next {
     z-index: 2;
-    opacity: 0.26;
+    opacity: 0.22;
     filter: blur(2px);
     transform: translateX(64%) scale(0.82);
   }
@@ -280,7 +349,7 @@
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    color: rgba(255, 255, 255, 0.42);
+    color: rgba(255, 255, 255, 0.38);
     transform: translateX(-50%);
     pointer-events: none;
     animation: rankingsSwipeHint 3.8s ease-in-out infinite;
@@ -296,7 +365,7 @@
   .rankings-section__gesture-arrow {
     font-size: 0.9rem;
     line-height: 1;
-    color: rgba(215, 181, 109, 0.5);
+    color: rgba(191, 154, 84, 0.55);
   }
 
   .rankings-section__gesture-arrow--left {
@@ -308,57 +377,21 @@
   }
 
   @keyframes rankingsSwipeHint {
-    0% {
-      transform: translateX(-50%);
-    }
-
-    10% {
-      transform: translateX(calc(-50% - 5px));
-    }
-
-    20% {
-      transform: translateX(calc(-50% + 5px));
-    }
-
-    30% {
-      transform: translateX(calc(-50% - 5px));
-    }
-
-    40% {
-      transform: translateX(calc(-50% + 5px));
-    }
-
-    50%,
-    100% {
-      transform: translateX(-50%);
-    }
+    0%        { transform: translateX(-50%); }
+    10%       { transform: translateX(calc(-50% - 5px)); }
+    20%       { transform: translateX(calc(-50% + 5px)); }
+    30%       { transform: translateX(calc(-50% - 5px)); }
+    40%       { transform: translateX(calc(-50% + 5px)); }
+    50%, 100% { transform: translateX(-50%); }
   }
 
   @keyframes rankingsSwipeHand {
-    0% {
-      transform: scaleY(1.1) skewX(0deg);
-    }
-
-    10% {
-      transform: scaleY(1.1) skewX(5deg);
-    }
-
-    20% {
-      transform: scaleY(1.1) skewX(-5deg);
-    }
-
-    30% {
-      transform: scaleY(1.1) skewX(5deg);
-    }
-
-    40% {
-      transform: scaleY(1.1) skewX(-5deg);
-    }
-
-    50%,
-    100% {
-      transform: scaleY(1.1) skewX(0deg);
-    }
+    0%        { transform: scaleY(1.1) skewX(0deg); }
+    10%       { transform: scaleY(1.1) skewX(5deg); }
+    20%       { transform: scaleY(1.1) skewX(-5deg); }
+    30%       { transform: scaleY(1.1) skewX(5deg); }
+    40%       { transform: scaleY(1.1) skewX(-5deg); }
+    50%, 100% { transform: scaleY(1.1) skewX(0deg); }
   }
 }
 
@@ -376,6 +409,6 @@
   }
 
   .rankings-section__logo-link {
-    min-height: 150px;
+    min-height: 160px;
   }
 }
