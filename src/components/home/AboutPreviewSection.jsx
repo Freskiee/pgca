@@ -5,7 +5,7 @@ const teamMembers = [
         id: 1,
         name: 'José Alberto López Cardoso',
         credentials: 'L.C., E.F. y M.D.A.F.',
-        role: 'Socio Fiscal',
+        role: 'Socio · Asesoría Fiscal',
         area: 'Consultoría fiscal, patrimonial y de negocios',
         image:
             'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop',

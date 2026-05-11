@@ -1,15 +1,20 @@
 import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FaGavel } from 'react-icons/fa6'
-import { RiFileSearchLine, RiCalculatorLine } from 'react-icons/ri'
-import { HiOutlineBuildingLibrary } from 'react-icons/hi2'
+
+import {
+    PiBankBold,
+    PiShieldCheckBold,
+    PiBuildingsBold,
+    PiChartLineUpBold,
+} from 'react-icons/pi'
+
 import { siteContent } from '../../data/siteContent'
 
 const iconMap = {
-    'Derecho Penal': FaGavel,
-    'Derecho Fiscal': RiFileSearchLine,
-    'Derecho Corporativo': HiOutlineBuildingLibrary,
-    Contabilidad: RiCalculatorLine,
+    'Derecho Penal': PiShieldCheckBold,
+    'Derecho Fiscal': PiBankBold,
+    'Derecho Corporativo': PiBuildingsBold,
+    Contabilidad: PiChartLineUpBold,
 }
 
 const PracticeAreasSection = () => {
@@ -31,6 +36,7 @@ const PracticeAreasSection = () => {
 
     const handleMouseMove = (event, index) => {
         const { left, width } = event.currentTarget.getBoundingClientRect()
+
         const x = event.clientX - left
         const ratio = Math.max(0, Math.min(1, x / width))
 
@@ -113,13 +119,15 @@ const PracticeAreasSection = () => {
             className="pgca-section practice-areas-section practice-areas-section--refined"
         >
             <div className="practice-areas-section__banner">
-                <div className="practice-areas-section__banner-overlay" />
                 <div className="pgca-container practice-areas-section__banner-content">
                     <div className="practice-areas-section__banner-copy">
-                        <h2 className="practice-areas-section__hero-title">{title}</h2>
+                        <h2 className="practice-areas-section__hero-title">
+                            {title}
+                        </h2>
+
                         <p className="practice-areas-section__hero-text">
-                            Soluciones legales y contables estructuradas con una visión estratégica,
-                            rigurosa y cercana a cada necesidad.
+                            Soluciones legales y contables estructuradas con una visión
+                            estratégica, rigurosa y cercana a cada necesidad.
                         </p>
                     </div>
                 </div>
@@ -146,15 +154,20 @@ const PracticeAreasSection = () => {
                                     <div className="practice-areas-card__topline" />
 
                                     <div className="practice-areas-card__content">
-                                        <h3 className="practice-areas-card__title">{item.title}</h3>
+                                        <h3 className="practice-areas-card__title">
+                                            {item.title}
+                                        </h3>
 
                                         <p className="practice-areas-card__description">
                                             {item.title === 'Derecho Fiscal' &&
                                                 'Acompañamiento estratégico en cumplimiento, defensa y planeación fiscal.'}
+
                                             {item.title === 'Derecho Penal' &&
                                                 'Atención profesional en asuntos penales con enfoque técnico y preciso.'}
+
                                             {item.title === 'Derecho Corporativo' &&
                                                 'Estructura jurídica para empresas, operaciones y decisiones clave.'}
+
                                             {item.title === 'Contabilidad' &&
                                                 'Control, orden y análisis contable para respaldar cada operación.'}
                                         </p>
@@ -162,7 +175,9 @@ const PracticeAreasSection = () => {
 
                                     <div className="practice-areas-card__bottom">
                                         <div className="practice-areas-card__icon-wrapper">
-                                            {Icon ? <Icon className="practice-areas-card__icon" /> : null}
+                                            {Icon ? (
+                                                <Icon className="practice-areas-card__icon" />
+                                            ) : null}
                                         </div>
 
                                         <span className="practice-areas-card__cta">
@@ -180,4 +195,4 @@ const PracticeAreasSection = () => {
     )
 }
 
-export default PracticeAreasSection;
+export default PracticeAreasSection

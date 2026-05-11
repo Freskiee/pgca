@@ -6,12 +6,47 @@ import logotipoLight from '../../assets/brand/logotipo-light.png'
 const navItems = [
   { label: 'Inicio', target: 'inicio' },
   { label: 'Áreas', target: 'servicios' },
-  { label: 'Nosotros', target: 'nosotros' },
+  { label: 'Socios', target: 'nosotros' },
   { label: 'Rankings', target: 'rankings' },
-  { label: 'Equipo', target: 'equipo' },
   { label: 'Oficinas', target: 'oficinas' },
+  { label: 'Redes', target: 'instagram' },
   { label: 'Contacto', target: 'contacto' },
 ]
+
+const getNavbarOffset = () => {
+  const navbar = document.querySelector('.pgca-navbar')
+  return navbar ? navbar.offsetHeight : 0
+}
+
+const cleanUrlHash = () => {
+  if (window.location.pathname === '/') {
+    window.history.replaceState({}, '', '/')
+  }
+}
+
+const scrollToSection = (target, behavior = 'smooth') => {
+  const element = document.getElementById(target)
+  if (!element) return
+
+  const navbarOffset = getNavbarOffset()
+  const sectionTop = element.getBoundingClientRect().top + window.scrollY
+
+  window.scrollTo({
+    top: Math.max(sectionTop - navbarOffset, 0),
+    behavior,
+  })
+}
+
+const scrollToSectionAccurate = (target) => {
+  window.requestAnimationFrame(() => {
+    scrollToSection(target, 'smooth')
+  })
+
+  window.setTimeout(() => {
+    scrollToSection(target, 'auto')
+    cleanUrlHash()
+  }, 520)
+}
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -20,8 +55,7 @@ const Navbar = () => {
   const location = useLocation()
   const navigate = useNavigate()
 
-  const isHome = location.pathname === '/'
-  const useLightLogo = isHome && !isScrolled && !isMenuOpen
+  const useLightLogo = !isScrolled && !isMenuOpen
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,72 +94,46 @@ const Navbar = () => {
     }
 
     window.addEventListener('keydown', handleEscape)
+
     return () => window.removeEventListener('keydown', handleEscape)
   }, [])
 
   useEffect(() => {
-    if (location.pathname === '/' && location.hash) {
-      const hash = location.hash.replace('#', '')
+    if (location.pathname !== '/') return
 
-      const scrollToSection = () => {
-        const element = document.getElementById(hash)
-        if (element) {
-          element.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start',
-          })
-        }
-      }
+    const hashTarget = location.hash ? location.hash.replace('#', '') : null
+    const stateTarget = location.state?.scrollTarget || null
+    const target = stateTarget || hashTarget
 
-      const timeout = window.setTimeout(scrollToSection, 120)
-      return () => window.clearTimeout(timeout)
+    if (!target) {
+      cleanUrlHash()
+      return
     }
-  }, [location.pathname, location.hash])
+
+    const timeout = window.setTimeout(() => {
+      scrollToSectionAccurate(target)
+    }, 260)
+
+    return () => window.clearTimeout(timeout)
+  }, [location.pathname, location.hash, location.state])
 
   const closeMenu = () => {
     setIsMenuOpen(false)
-  }
-
-  const handleHomeNavigation = () => {
-    closeMenu()
-
-    if (location.pathname !== '/') {
-      navigate('/')
-      return
-    }
-
-    const element = document.getElementById('inicio')
-
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-      return
-    }
-
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    })
   }
 
   const handleSectionNavigation = (target) => {
     closeMenu()
 
     if (location.pathname !== '/') {
-      navigate(`/#${target}`)
+      navigate('/', {
+        state: { scrollTarget: target },
+        replace: false,
+      })
+
       return
     }
 
-    const element = document.getElementById(target)
-
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }
+    scrollToSectionAccurate(target)
   }
 
   return (
@@ -138,12 +146,8 @@ const Navbar = () => {
               className="pgca-navbar__brand"
               aria-label="Ir al inicio"
               onClick={(event) => {
-                if (location.pathname === '/') {
-                  event.preventDefault()
-                  handleHomeNavigation()
-                } else {
-                  closeMenu()
-                }
+                event.preventDefault()
+                handleSectionNavigation('inicio')
               }}
             >
               <img
@@ -159,11 +163,7 @@ const Navbar = () => {
                   key={item.label}
                   type="button"
                   className="pgca-navbar__nav-button"
-                  onClick={() =>
-                    item.target === 'inicio'
-                      ? handleHomeNavigation()
-                      : handleSectionNavigation(item.target)
-                  }
+                  onClick={() => handleSectionNavigation(item.target)}
                 >
                   {item.label}
                 </button>
@@ -197,11 +197,7 @@ const Navbar = () => {
               key={item.label}
               type="button"
               className="pgca-mobile-menu__link"
-              onClick={() =>
-                item.target === 'inicio'
-                  ? handleHomeNavigation()
-                  : handleSectionNavigation(item.target)
-              }
+              onClick={() => handleSectionNavigation(item.target)}
             >
               {item.label}
             </button>

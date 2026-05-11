@@ -1,3 +1,5 @@
+import angelIndependencia from '../assets/inicio/angel_indepe.jpg';
+
 export const siteContent = {
   brand: {
     shortName: 'PGCA',
@@ -12,7 +14,7 @@ export const siteContent = {
       href: '#contacto',
     },
     backgroundImage:
-      'https://images.unsplash.com/photo-1511818966892-d7d671e672a2?q=80&w=1800&auto=format&fit=crop',
+      angelIndependencia,
     mission:
       'Proporcionar asesoría legal y contable de excelencia, basada en la integridad, la ética y la profesionalidad. Nos esforzamos por ser socios estratégicos de nuestros clientes, ayudándolos a alcanzar sus objetivos y resolver sus desafíos con soluciones eficientes y efectivas.',
     vision:
