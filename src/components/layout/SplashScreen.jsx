@@ -1,24 +1,79 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import isotipoLight from '../../assets/brand/isotipo-light.png'
+
+const INACTIVITY_TIME = 2 * 60 * 1000
 
 const SplashScreen = () => {
   const [isLeaving, setIsLeaving] = useState(false)
   const [visible, setVisible] = useState(true)
 
-  useEffect(() => {
-    const leaveTimer = setTimeout(() => {
-      setIsLeaving(true)
-    }, 1100)
+  const leaveTimerRef = useRef(null)
+  const removeTimerRef = useRef(null)
+  const hiddenAtRef = useRef(null)
 
-    const removeTimer = setTimeout(() => {
-      setVisible(false)
-    }, 2100)
+  const clearSplashTimers = useCallback(() => {
+    if (leaveTimerRef.current) {
+      clearTimeout(leaveTimerRef.current)
+      leaveTimerRef.current = null
+    }
 
-    return () => {
-      clearTimeout(leaveTimer)
-      clearTimeout(removeTimer)
+    if (removeTimerRef.current) {
+      clearTimeout(removeTimerRef.current)
+      removeTimerRef.current = null
     }
   }, [])
+
+  const playSplash = useCallback(() => {
+    clearSplashTimers()
+
+    window.setTimeout(() => {
+      setVisible(true)
+      setIsLeaving(false)
+
+      leaveTimerRef.current = window.setTimeout(() => {
+        setIsLeaving(true)
+      }, 1450)
+
+      removeTimerRef.current = window.setTimeout(() => {
+        setVisible(false)
+      }, 2800)
+    }, 0)
+  }, [clearSplashTimers])
+
+  useEffect(() => {
+    const startTimer = window.setTimeout(() => {
+      playSplash()
+    }, 0)
+
+    return () => {
+      window.clearTimeout(startTimer)
+      clearSplashTimers()
+    }
+  }, [playSplash, clearSplashTimers])
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        hiddenAtRef.current = Date.now()
+        return
+      }
+
+      const hiddenAt = hiddenAtRef.current
+      const inactiveTime = hiddenAt ? Date.now() - hiddenAt : 0
+
+      if (inactiveTime >= INACTIVITY_TIME) {
+        playSplash()
+      }
+
+      hiddenAtRef.current = null
+    }
+
+    document.addEventListener('visibilitychange', handleVisibilityChange)
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange)
+    }
+  }, [playSplash])
 
   if (!visible) return null
 

@@ -1,4 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
+import alfonsoImg from '../../assets/socios/alfonso.png'
+import alejandroImg from '../../assets/socios/alejandro.png'
+import joseAlbertoImg from '../../assets/socios/jose_alberto.png'
 
 const teamMembers = [
     {
@@ -7,8 +10,8 @@ const teamMembers = [
         credentials: 'L.C., E.F. y M.D.A.F.',
         role: 'Socio · Asesoría Fiscal',
         area: 'Consultoría fiscal, patrimonial y de negocios',
-        image:
-            'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1200&auto=format&fit=crop',
+        image: joseAlbertoImg,
+        imageFocus: 'center 24%',
         phone: '55 4027 6991',
         email: 'alberto@pgca.com',
         linkedin: 'https://linkedin.com/in/alberto-cardoso',
@@ -21,8 +24,8 @@ const teamMembers = [
         credentials: 'Licenciado en Derecho',
         role: 'Socio · Derecho Penal',
         area: 'Defensa penal, crisis y asuntos complejos',
-        image:
-            'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1200&auto=format&fit=crop',
+        image: alejandroImg,
+        imageFocus: 'center 22%',
         phone: '55 4871 5443',
         email: 'alejandro@pgca.com',
         linkedin: 'https://linkedin.com/in/alejandro-guerrero',
@@ -35,8 +38,8 @@ const teamMembers = [
         credentials: 'Licenciado en Derecho',
         role: 'Socio · Derecho Fiscal',
         area: 'Litigio fiscal, administrativo y prevención de riesgos',
-        image:
-            'https://images.unsplash.com/photo-1504593811423-6dd665756598?q=80&w=1200&auto=format&fit=crop',
+        image: alfonsoImg,
+        imageFocus: 'center 25%',
         phone: '55 3056 0190',
         email: 'poncho@pgca.com',
         linkedin: 'https://linkedin.com/in/alfonso-yanez',
@@ -46,7 +49,8 @@ const teamMembers = [
 ]
 
 const AUTO_SLIDE_MS = 9000
-const TRANSITION_MS = 900
+const CHANGE_OUT_MS = 260
+const CHANGE_IN_MS = 620
 
 const normalizePhoneHref = (phone) => `tel:+52${phone.replace(/\D/g, '')}`
 
@@ -65,8 +69,11 @@ const AboutPreviewSection = () => {
     const [activeMember, setActiveMember] = useState(null)
     const [previewMemberId, setPreviewMemberId] = useState(null)
     const [isPaused, setIsPaused] = useState(false)
+    const [isChanging, setIsChanging] = useState(false)
+    const [slideDirection, setSlideDirection] = useState('next')
 
-    const transitionTimeoutRef = useRef(null)
+    const changeTimeoutRef = useRef(null)
+    const settleTimeoutRef = useRef(null)
 
     const currentMember = teamMembers[currentIndex]
     const prevIndex = currentIndex === 0 ? teamMembers.length - 1 : currentIndex - 1
@@ -75,26 +82,48 @@ const AboutPreviewSection = () => {
     const prevMember = teamMembers[prevIndex]
     const nextMember = teamMembers[nextIndex]
 
-    const changeToIndex = (nextValue) => {
+    const clearChangeTimers = () => {
+        window.clearTimeout(changeTimeoutRef.current)
+        window.clearTimeout(settleTimeoutRef.current)
+    }
+
+    const changeToIndex = (nextValue, direction = 'next') => {
+        if (nextValue === currentIndex || isChanging) return
+
+        clearChangeTimers()
         setPreviewMemberId(null)
-        setCurrentIndex(nextValue)
+        setSlideDirection(direction)
+        setIsChanging(true)
+
+        changeTimeoutRef.current = window.setTimeout(() => {
+            setCurrentIndex(nextValue)
+
+            settleTimeoutRef.current = window.setTimeout(() => {
+                setIsChanging(false)
+            }, CHANGE_IN_MS)
+        }, CHANGE_OUT_MS)
     }
 
     const goToPrev = (event) => {
         event?.stopPropagation()
-        setCurrentIndex(
-            (prev) => (prev - 1 + teamMembers.length) % teamMembers.length
-        )
-        setPreviewMemberId(null)
+        changeToIndex(prevIndex, 'prev')
     }
 
     const goToNext = (event) => {
         event?.stopPropagation()
-        setCurrentIndex((prev) => (prev + 1) % teamMembers.length)
-        setPreviewMemberId(null)
+        changeToIndex(nextIndex, 'next')
+    }
+
+    const handleDotClick = (event, index) => {
+        event.stopPropagation()
+
+        const direction = index > currentIndex ? 'next' : 'prev'
+        changeToIndex(index, direction)
     }
 
     const handleCenterClick = () => {
+        if (isChanging) return
+
         if (isTouchLikeDevice() && previewMemberId !== currentMember.id) {
             setPreviewMemberId(currentMember.id)
             return
@@ -109,15 +138,17 @@ const AboutPreviewSection = () => {
     }
 
     useEffect(() => {
-        if (isPaused || activeMember) return
+        if (isPaused || activeMember || isChanging) return
 
         const interval = window.setInterval(() => {
-            setCurrentIndex((prev) => (prev + 1) % teamMembers.length)
-            setPreviewMemberId(null)
+            const nextAutoIndex =
+                currentIndex === teamMembers.length - 1 ? 0 : currentIndex + 1
+
+            changeToIndex(nextAutoIndex, 'next')
         }, AUTO_SLIDE_MS)
 
         return () => window.clearInterval(interval)
-    }, [isPaused, activeMember])
+    }, [currentIndex, isPaused, activeMember, isChanging])
 
     useEffect(() => {
         document.body.style.overflow = activeMember ? 'hidden' : ''
@@ -138,7 +169,7 @@ const AboutPreviewSection = () => {
 
         return () => {
             window.removeEventListener('keydown', handleEscape)
-            window.clearTimeout(transitionTimeoutRef.current)
+            clearChangeTimers()
         }
     }, [])
 
@@ -151,7 +182,6 @@ const AboutPreviewSection = () => {
                     <div className="pgca-container about-parallax-section__hero-content">
                         <div className="about-parallax-section__content-wrap about-parallax-section__content-wrap--team">
                             <div className="about-parallax-section__intro">
-
                                 <h2 className="about-parallax-section__hero-title">
                                     Un equipo construido desde la experiencia y la estrategia
                                 </h2>
@@ -165,7 +195,8 @@ const AboutPreviewSection = () => {
                             </div>
 
                             <div
-                                className="about-spotlight"
+                                className={`about-spotlight ${isChanging ? 'is-changing' : ''
+                                    } about-spotlight--${slideDirection}`}
                                 onMouseEnter={() => setIsPaused(true)}
                                 onMouseLeave={() => setIsPaused(false)}
                             >
@@ -175,7 +206,11 @@ const AboutPreviewSection = () => {
                                     onClick={goToPrev}
                                     aria-label={`Ver a ${prevMember.name}`}
                                 >
-                                    <img src={prevMember.image} alt="" />
+                                    <img
+                                        src={prevMember.image}
+                                        alt=""
+                                        style={{ objectPosition: prevMember.imageFocus }}
+                                    />
                                 </button>
 
                                 <article
@@ -192,6 +227,7 @@ const AboutPreviewSection = () => {
                                             src={currentMember.image}
                                             alt={currentMember.name}
                                             className="about-spotlight__image"
+                                            style={{ objectPosition: currentMember.imageFocus }}
                                         />
 
                                         <div className="about-spotlight__info">
@@ -225,7 +261,11 @@ const AboutPreviewSection = () => {
                                     onClick={goToNext}
                                     aria-label={`Ver a ${nextMember.name}`}
                                 >
-                                    <img src={nextMember.image} alt="" />
+                                    <img
+                                        src={nextMember.image}
+                                        alt=""
+                                        style={{ objectPosition: nextMember.imageFocus }}
+                                    />
                                 </button>
 
                                 <div className="about-spotlight__dots">
@@ -235,10 +275,7 @@ const AboutPreviewSection = () => {
                                             type="button"
                                             className={`about-spotlight__dot ${index === currentIndex ? 'is-active' : ''
                                                 }`}
-                                            onClick={(event) => {
-                                                event.stopPropagation()
-                                                changeToIndex(index)
-                                            }}
+                                            onClick={(event) => handleDotClick(event, index)}
                                             aria-label={`Ver a ${member.name}`}
                                         />
                                     ))}
@@ -276,6 +313,7 @@ const AboutPreviewSection = () => {
                                     src={activeMember.image}
                                     alt={activeMember.name}
                                     className="about-team-modal__photo"
+                                    style={{ objectPosition: activeMember.imageFocus }}
                                 />
                             </div>
 

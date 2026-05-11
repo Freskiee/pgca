@@ -8,23 +8,25 @@ const ScrollToTopOnMount = () => {
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
     }
+  }, [])
 
-    const scrollToTop = () => {
-      window.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: 'auto',
-      })
+  useEffect(() => {
+    const isHome = location.pathname === '/'
+    const hasHash = Boolean(location.hash)
+    const hasScrollTarget = Boolean(location.state?.scrollTarget)
+
+    if (isHome && (hasHash || hasScrollTarget)) {
+      return
     }
 
-    scrollToTop()
-
-    const timeout = setTimeout(scrollToTop, 0)
-
-    return () => clearTimeout(timeout)
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'auto',
+    })
   }, [location.pathname])
 
   return null
 }
 
-export default ScrollToTopOnMount;
+export default ScrollToTopOnMount

@@ -4,16 +4,21 @@ import PenalPage from './pages/PenalPage'
 import FiscalPage from './pages/FiscalPage'
 import CorporativoPage from './pages/CorporativoPage'
 import ContabilidadPage from './pages/ContabilidadPage'
+import ScrollToTopOnMount from './components/layout/ScrollToTopOnMount'
 
 const App = () => {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/derecho-penal" element={<PenalPage />} />
-      <Route path="/derecho-fiscal" element={<FiscalPage />} />
-      <Route path="/derecho-corporativo" element={<CorporativoPage />} />
-      <Route path="/contabilidad" element={<ContabilidadPage />} />
-    </Routes>
+    <>
+      <ScrollToTopOnMount />
+
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/derecho-penal" element={<PenalPage />} />
+        <Route path="/derecho-fiscal" element={<FiscalPage />} />
+        <Route path="/derecho-corporativo" element={<CorporativoPage />} />
+        <Route path="/contabilidad" element={<ContabilidadPage />} />
+      </Routes>
+    </>
   )
 }
 
