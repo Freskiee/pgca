@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import mejoresAbogadosMexicoLogo from '../../assets/rankings/mejores-abogados-mexico.svg'
 import topsMexicoLogo from '../../assets/rankings/tops-mexico.png'
@@ -8,208 +8,229 @@ import mejores2025Logo from '../../assets/rankings/mejores_2025.svg'
 import mejores2026Logo from '../../assets/rankings/mejores_2026.svg'
 import sociosPremioBg from '../../assets/oficinas/socios-premio.jpg'
 
-const rankingsLogos = [
-  { name: 'Los Mejores Abogados de México', image: mejoresAbogadosMexicoLogo, href: 'https://topslosmejoresabogados.com/' },
-  { name: 'Tops México', image: topsMexicoLogo, href: 'https://www.instagram.com/p/DXpPpemll3B/' },
-  { name: 'Edición 2023', image: mejores2023Logo, href: 'https://topslosmejoresabogados.com/suplemento-2023/' },
-  { name: 'Edición 2024', image: mejores2024Logo, href: 'https://topslosmejoresabogados.com/suplemento-2024/' },
-  { name: 'Edición 2025', image: mejores2025Logo, href: 'https://topslosmejoresabogados.com/suplemento-2025/' },
-  { name: 'Edición 2026', image: mejores2026Logo, href: 'https://topslosmejoresabogados.com/top-ranking/' },
+const mainLogos = [
+    {
+        name: 'Los Mejores Abogados de México',
+        image: mejoresAbogadosMexicoLogo,
+        href: 'https://topslosmejoresabogados.com/',
+    },
+    {
+        name: 'Tops México',
+        image: topsMexicoLogo,
+        href: 'https://www.instagram.com/p/DXpPpemll3B/',
+    },
 ]
+
+const editionLogos = [
+    { name: 'Edición 2023', image: mejores2023Logo, href: 'https://topslosmejoresabogados.com/suplemento-2023/' },
+    { name: 'Edición 2024', image: mejores2024Logo, href: 'https://topslosmejoresabogados.com/suplemento-2024/' },
+    { name: 'Edición 2025', image: mejores2025Logo, href: 'https://topslosmejoresabogados.com/suplemento-2025/' },
+    { name: 'Edición 2026', image: mejores2026Logo, href: 'https://topslosmejoresabogados.com/top-ranking/' },
+]
+
+const rankingsLogos = [...mainLogos, ...editionLogos]
 
 const AUTO_ROTATE_MS = 6000
 const SWIPE_THRESHOLD = 70
 const TAP_TOLERANCE = 10
 
-/* Shimmer dorado que sigue el cursor dentro de cada card */
-const useMouseShimmer = () => {
-  const handleMouseMove = useCallback((e) => {
-    const el = e.currentTarget
-    const rect = el.getBoundingClientRect()
-    const x = ((e.clientX - rect.left) / rect.width) * 100
-    const y = ((e.clientY - rect.top) / rect.height) * 100
-    el.style.setProperty('--mouse-x', `${x}%`)
-    el.style.setProperty('--mouse-y', `${y}%`)
-  }, [])
-
-  const handleMouseLeave = useCallback((e) => {
-    e.currentTarget.style.setProperty('--mouse-x', '50%')
-    e.currentTarget.style.setProperty('--mouse-y', '50%')
-  }, [])
-
-  return { onMouseMove: handleMouseMove, onMouseLeave: handleMouseLeave }
-}
-
 const RankingsSection = () => {
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [direction, setDirection] = useState('next')
-  const [isPaused, setIsPaused] = useState(false)
+    const [activeIndex, setActiveIndex] = useState(0)
+    const [direction, setDirection] = useState('next')
+    const [isPaused, setIsPaused] = useState(false)
 
-  const touchStartXRef = useRef(null)
-  const touchDeltaXRef = useRef(0)
-  const wasSwipingRef = useRef(false)
+    const touchStartXRef = useRef(null)
+    const touchDeltaXRef = useRef(0)
+    const wasSwipingRef = useRef(false)
 
-  const total = rankingsLogos.length
-  const prevIndex = (activeIndex - 1 + total) % total
-  const nextIndex = (activeIndex + 1) % total
+    const total = rankingsLogos.length
+    const prevIndex = (activeIndex - 1 + total) % total
+    const nextIndex = (activeIndex + 1) % total
 
-  const shimmer = useMouseShimmer()
-
-  const goToPrev = () => {
-    setDirection('prev')
-    setActiveIndex((prev) => (prev - 1 + total) % total)
-  }
-
-  const goToNext = () => {
-    setDirection('next')
-    setActiveIndex((prev) => (prev + 1) % total)
-  }
-
-  const handleTouchStart = (event) => {
-    touchStartXRef.current = event.touches[0].clientX
-    touchDeltaXRef.current = 0
-    wasSwipingRef.current = false
-    setIsPaused(true)
-  }
-
-  const handleTouchMove = (event) => {
-    if (touchStartXRef.current === null) return
-    touchDeltaXRef.current = touchStartXRef.current - event.touches[0].clientX
-    if (Math.abs(touchDeltaXRef.current) > TAP_TOLERANCE) {
-      wasSwipingRef.current = true
+    const goToPrev = () => {
+        setDirection('prev')
+        setActiveIndex((prev) => (prev - 1 + total) % total)
     }
-  }
 
-  const handleTouchEnd = () => {
-    const diff = touchDeltaXRef.current
-    if (Math.abs(diff) > SWIPE_THRESHOLD) {
-      diff > 0 ? goToNext() : goToPrev()
+    const goToNext = useCallback(() => {
+        setDirection('next')
+        setActiveIndex((prev) => (prev + 1) % total)
+    }, [total])
+
+    const handleTouchStart = (event) => {
+        touchStartXRef.current = event.touches[0].clientX
+        touchDeltaXRef.current = 0
+        wasSwipingRef.current = false
+        setIsPaused(true)
     }
-    touchStartXRef.current = null
-    touchDeltaXRef.current = 0
-    window.setTimeout(() => {
-      setIsPaused(false)
-      wasSwipingRef.current = false
-    }, 650)
-  }
 
-  const handleActiveClick = (event) => {
-    if (wasSwipingRef.current) event.preventDefault()
-  }
+    const handleTouchMove = (event) => {
+        if (touchStartXRef.current === null) return
+        touchDeltaXRef.current = touchStartXRef.current - event.touches[0].clientX
+        if (Math.abs(touchDeltaXRef.current) > TAP_TOLERANCE) {
+            wasSwipingRef.current = true
+        }
+    }
 
-  useEffect(() => {
-    if (isPaused) return
-    const interval = window.setInterval(goToNext, AUTO_ROTATE_MS)
-    return () => window.clearInterval(interval)
-  }, [isPaused])
+    const handleTouchEnd = () => {
+        const diff = touchDeltaXRef.current
 
-  return (
-    <section className="rankings-section" id="rankings">
-      <div
-        className="rankings-section__bg-image"
-        aria-hidden="true"
-        style={{
-          backgroundImage: `
-            linear-gradient(
-              180deg,
-              rgba(4, 10, 18, 0.60) 0%,
-              rgba(4, 10, 18, 0.40) 44%,
-              rgba(4, 10, 18, 0.55) 100%
-            ),
-            url(${sociosPremioBg})
-          `,
-        }}
-      />
+        if (Math.abs(diff) > SWIPE_THRESHOLD) {
+            if (diff > 0) goToNext()
+            else goToPrev()
+        }
 
-      <div className="pgca-container">
-        <div className="rankings-section__header">
-          <h2 className="rankings-section__title">
-            Presencia editorial
-            <br />
-            en rankings jurídicos
-          </h2>
+        touchStartXRef.current = null
+        touchDeltaXRef.current = 0
 
-          <p className="rankings-section__description">
-            Menciones en Tops México y Los Mejores Abogados de México, espacios
-            editoriales que reconocen trayectorias profesionales por su práctica,
-            constancia y reputación dentro del ámbito jurídico nacional.
-          </p>
-        </div>
+        window.setTimeout(() => {
+            setIsPaused(false)
+            wasSwipingRef.current = false
+        }, 650)
+    }
 
-        <div className="rankings-section__logos-wrap">
+    const handleActiveClick = (event) => {
+        if (wasSwipingRef.current) event.preventDefault()
+    }
 
-          {/* DESKTOP GRID */}
-          <div className="rankings-section__logos-grid">
-            {rankingsLogos.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                target="_blank"
-                rel="noreferrer"
-                className="rankings-section__logo-link"
-                aria-label={item.name}
-                {...shimmer}
-              >
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="rankings-section__logo-image"
-                />
-              </a>
-            ))}
-          </div>
+    useEffect(() => {
+        if (isPaused) return
+        const interval = window.setInterval(goToNext, AUTO_ROTATE_MS)
+        return () => window.clearInterval(interval)
+    }, [isPaused, goToNext])
 
-          {/* MOBILE CAROUSEL */}
-          <div
-            className={`rankings-section__mobile-carousel rankings-section__mobile-carousel--${direction}`}
-            onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
-            onTouchEnd={handleTouchEnd}
-          >
-            <button
-              type="button"
-              className="rankings-section__mobile-card rankings-section__mobile-card--prev"
-              onClick={goToPrev}
-              aria-label={`Ver ${rankingsLogos[prevIndex].name}`}
-            >
-              <img src={rankingsLogos[prevIndex].image} alt="" />
-            </button>
+    return (
+        <section className="rankings-section" id="rankings">
+            <div
+                className="rankings-section__bg-image"
+                aria-hidden="true"
+                style={{
+                    backgroundImage: `
+                        linear-gradient(
+                            180deg,
+                            rgba(4, 10, 18, 0.54) 0%,
+                            rgba(4, 10, 18, 0.37) 44%,
+                            rgba(4, 10, 18, 0.38) 100%
+                        ),
+                        url(${sociosPremioBg})
+                    `,
+                }}
+            />
 
-            <a
-              key={rankingsLogos[activeIndex].name}
-              href={rankingsLogos[activeIndex].href}
-              target="_blank"
-              rel="noreferrer"
-              className="rankings-section__mobile-card rankings-section__mobile-card--active"
-              aria-label={rankingsLogos[activeIndex].name}
-              onClick={handleActiveClick}
-            >
-              <img
-                src={rankingsLogos[activeIndex].image}
-                alt={rankingsLogos[activeIndex].name}
-              />
-            </a>
+            <div className="pgca-container">
 
-            <button
-              type="button"
-              className="rankings-section__mobile-card rankings-section__mobile-card--next"
-              onClick={goToNext}
-              aria-label={`Ver ${rankingsLogos[nextIndex].name}`}
-            >
-              <img src={rankingsLogos[nextIndex].image} alt="" />
-            </button>
+                {/* HEADER */}
+                <div className="rankings-section__header">
+                    <div className="rankings-section__header-left">
+                        <span className="rankings-section__eyebrow">
+                            Reconocimiento editorial
+                        </span>
+                        <h2 className="rankings-section__title">
+                            Presencia editorial
+                            <br />
+                            en rankings jurídicos
+                        </h2>
+                    </div>
 
-            <div className="rankings-section__mobile-gesture" aria-hidden="true">
-              <i className="bi bi-arrow-left rankings-section__gesture-arrow rankings-section__gesture-arrow--left" />
-              <i className="bi bi-hand-index-thumb rankings-section__gesture-hand" />
-              <i className="bi bi-arrow-right rankings-section__gesture-arrow rankings-section__gesture-arrow--right" />
+                    <div className="rankings-section__header-right">
+                        <p className="rankings-section__description">
+                            Menciones en Tops México y Los Mejores Abogados de México, espacios
+                            editoriales que reconocen trayectorias profesionales por su práctica,
+                            constancia y reputación dentro del ámbito jurídico nacional.
+                        </p>
+                    </div>
+                </div>
+
+                <div className="rankings-section__divider" />
+
+                {/* LOGOS PRINCIPALES */}
+                <div className="rankings-section__main-logos">
+                    {mainLogos.map((item) => (
+                        <a
+                            key={item.name}
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="rankings-section__main-card"
+                            aria-label={item.name}
+                        >
+                            <img src={item.image} alt={item.name} />
+                        </a>
+                    ))}
+                </div>
+
+                {/* CONECTOR */}
+                <div className="rankings-section__editions-connector">
+                    <div className="rankings-section__connector-dot" />
+                    <div className="rankings-section__connector-line" />
+                    <span className="rankings-section__connector-label">Ediciones anuales</span>
+                    <div className="rankings-section__connector-line" />
+                    <div className="rankings-section__connector-dot" />
+                </div>
+
+                {/* EDICIONES ANUALES */}
+                <div className="rankings-section__editions-row">
+                    {editionLogos.map((item) => (
+                        <a
+                            key={item.name}
+                            href={item.href}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="rankings-section__edition-card"
+                            aria-label={item.name}
+                        >
+                            <img src={item.image} alt={item.name} />
+                        </a>
+                    ))}
+                </div>
+
+                {/* CAROUSEL MOBILE */}
+                <div
+                    className={`rankings-section__mobile-carousel rankings-section__mobile-carousel--${direction}`}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                >
+                    <button
+                        type="button"
+                        className="rankings-section__mobile-card rankings-section__mobile-card--prev"
+                        onClick={goToPrev}
+                        aria-label={`Ver ${rankingsLogos[prevIndex].name}`}
+                    >
+                        <img src={rankingsLogos[prevIndex].image} alt="" />
+                    </button>
+
+                    <a
+                        key={rankingsLogos[activeIndex].name}
+                        href={rankingsLogos[activeIndex].href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="rankings-section__mobile-card rankings-section__mobile-card--active"
+                        aria-label={rankingsLogos[activeIndex].name}
+                        onClick={handleActiveClick}
+                    >
+                        <img src={rankingsLogos[activeIndex].image} alt={rankingsLogos[activeIndex].name} />
+                    </a>
+
+                    <button
+                        type="button"
+                        className="rankings-section__mobile-card rankings-section__mobile-card--next"
+                        onClick={goToNext}
+                        aria-label={`Ver ${rankingsLogos[nextIndex].name}`}
+                    >
+                        <img src={rankingsLogos[nextIndex].image} alt="" />
+                    </button>
+
+                    <div className="rankings-section__mobile-gesture" aria-hidden="true">
+                        <i className="bi bi-arrow-left rankings-section__gesture-arrow rankings-section__gesture-arrow--left" />
+                        <i className="bi bi-hand-index-thumb rankings-section__gesture-hand" />
+                        <i className="bi bi-arrow-right rankings-section__gesture-arrow rankings-section__gesture-arrow--right" />
+                    </div>
+                </div>
+
             </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  )
+        </section>
+    )
 }
 
 export default RankingsSection

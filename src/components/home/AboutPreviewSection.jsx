@@ -46,13 +46,14 @@ const teamMembers = [
 ]
 
 const AUTO_SLIDE_MS = 7500
-const SLIDE_MS = 760
+// Fase 1: fade out (ms) — Fase 2: swap imagen — Fase 3: fade in (ms)
+const FADE_OUT_MS = 320
+const FADE_IN_MS = 420
 
 const normalizePhoneHref = (phone) => `tel:+52${phone.replace(/\D/g, '')}`
 
 const isTouchLikeDevice = () => {
     if (typeof window === 'undefined') return false
-
     return (
         window.matchMedia('(hover: none) and (pointer: coarse)').matches ||
         'ontouchstart' in window ||
@@ -62,73 +63,78 @@ const isTouchLikeDevice = () => {
 
 const AboutPreviewSection = () => {
     const [currentIndex, setCurrentIndex] = useState(0)
+    const [displayIndex, setDisplayIndex] = useState(0)   // índice que se ve en pantalla
+    const [fadeState, setFadeState] = useState('in') // 'out' | 'in'
     const [activeMember, setActiveMember] = useState(null)
     const [previewMemberId, setPreviewMemberId] = useState(null)
     const [isPaused, setIsPaused] = useState(false)
-    const [isSliding, setIsSliding] = useState(false)
-    const [slideDirection, setSlideDirection] = useState('next')
-    const [incomingIndex, setIncomingIndex] = useState(null)
+    const [isTransitioning, setIsTransitioning] = useState(false)
 
-    const changeTimeoutRef = useRef(null)
-    const settleTimeoutRef = useRef(null)
+    const pendingIndexRef = useRef(null)
+    const fadeOutTimer = useRef(null)
+    const fadeInTimer = useRef(null)
 
-    const currentMember = teamMembers[currentIndex]
     const prevIndex = currentIndex === 0 ? teamMembers.length - 1 : currentIndex - 1
     const nextIndex = currentIndex === teamMembers.length - 1 ? 0 : currentIndex + 1
 
     const prevMember = teamMembers[prevIndex]
     const nextMember = teamMembers[nextIndex]
+    const displayMember = teamMembers[displayIndex]
 
-    const clearChangeTimers = useCallback(() => {
-        window.clearTimeout(changeTimeoutRef.current)
-        window.clearTimeout(settleTimeoutRef.current)
+    const clearTimers = useCallback(() => {
+        window.clearTimeout(fadeOutTimer.current)
+        window.clearTimeout(fadeInTimer.current)
     }, [])
 
     const changeToIndex = useCallback(
-        (nextValue, direction = 'next') => {
-            if (nextValue === currentIndex || isSliding) return
+        (nextValue) => {
+            if (nextValue === currentIndex || isTransitioning) return
 
-            clearChangeTimers()
+            clearTimers()
             setPreviewMemberId(null)
-            setSlideDirection(direction)
-            setIncomingIndex(nextValue)
-            setIsSliding(true)
+            setIsTransitioning(true)
+            pendingIndexRef.current = nextValue
 
-            changeTimeoutRef.current = window.setTimeout(() => {
+            // Fase 1 — fade out
+            setFadeState('out')
+
+            fadeOutTimer.current = window.setTimeout(() => {
+                // Fase 2 — swap silencioso mientras está invisible
+                setDisplayIndex(nextValue)
                 setCurrentIndex(nextValue)
-                setIncomingIndex(null)
-                setIsSliding(false)
-            }, SLIDE_MS)
+                setFadeState('in')
+
+                fadeInTimer.current = window.setTimeout(() => {
+                    setIsTransitioning(false)
+                    pendingIndexRef.current = null
+                }, FADE_IN_MS)
+            }, FADE_OUT_MS)
         },
-        [currentIndex, isSliding, clearChangeTimers]
+        [currentIndex, isTransitioning, clearTimers]
     )
 
     const goToPrev = (event) => {
         event?.stopPropagation()
-        changeToIndex(prevIndex, 'prev')
+        changeToIndex(prevIndex)
     }
 
     const goToNext = (event) => {
         event?.stopPropagation()
-        changeToIndex(nextIndex, 'next')
+        changeToIndex(nextIndex)
     }
 
     const handleDotClick = (event, index) => {
         event.stopPropagation()
-
-        const direction = index > currentIndex ? 'next' : 'prev'
-        changeToIndex(index, direction)
+        changeToIndex(index)
     }
 
     const handleCenterClick = () => {
-        if (isSliding) return
-
-        if (isTouchLikeDevice() && previewMemberId !== currentMember.id) {
-            setPreviewMemberId(currentMember.id)
+        if (isTransitioning) return
+        if (isTouchLikeDevice() && previewMemberId !== displayMember.id) {
+            setPreviewMemberId(displayMember.id)
             return
         }
-
-        setActiveMember(currentMember)
+        setActiveMember(displayMember)
     }
 
     const handleCloseModal = useCallback(() => {
@@ -136,41 +142,31 @@ const AboutPreviewSection = () => {
         setPreviewMemberId(null)
     }, [])
 
+    // Auto-slide
     useEffect(() => {
-        if (isPaused || activeMember || isSliding) return
-
+        if (isPaused || activeMember || isTransitioning) return
         const interval = window.setInterval(() => {
-            const nextAutoIndex =
-                currentIndex === teamMembers.length - 1 ? 0 : currentIndex + 1
-
-            changeToIndex(nextAutoIndex, 'next')
+            const next = currentIndex === teamMembers.length - 1 ? 0 : currentIndex + 1
+            changeToIndex(next)
         }, AUTO_SLIDE_MS)
-
         return () => window.clearInterval(interval)
-    }, [currentIndex, isPaused, activeMember, isSliding, changeToIndex])
+    }, [currentIndex, isPaused, activeMember, isTransitioning, changeToIndex])
 
+    // Lock scroll con modal
     useEffect(() => {
         document.body.style.overflow = activeMember ? 'hidden' : ''
-
-        return () => {
-            document.body.style.overflow = ''
-        }
+        return () => { document.body.style.overflow = '' }
     }, [activeMember])
 
+    // Escape key
     useEffect(() => {
-        const handleEscape = (event) => {
-            if (event.key === 'Escape') {
-                handleCloseModal()
-            }
-        }
-
+        const handleEscape = (e) => { if (e.key === 'Escape') handleCloseModal() }
         window.addEventListener('keydown', handleEscape)
-
         return () => {
             window.removeEventListener('keydown', handleEscape)
-            clearChangeTimers()
+            clearTimers()
         }
-    }, [clearChangeTimers, handleCloseModal])
+    }, [clearTimers, handleCloseModal])
 
     return (
         <>
@@ -184,7 +180,6 @@ const AboutPreviewSection = () => {
                                 <h2 className="about-parallax-section__hero-title">
                                     Un equipo construido desde la experiencia y la estrategia
                                 </h2>
-
                                 <p className="about-parallax-section__description">
                                     En Peregrina, Guerrero, Cardoso & Asociados reunimos especialistas
                                     en materia penal, fiscal, administrativa y corporativa, con
@@ -194,11 +189,11 @@ const AboutPreviewSection = () => {
                             </div>
 
                             <div
-                                className={`about-spotlight ${isSliding ? 'is-sliding' : ''
-                                    } about-spotlight--${slideDirection}`}
+                                className="about-spotlight"
                                 onMouseEnter={() => setIsPaused(true)}
                                 onMouseLeave={() => setIsPaused(false)}
                             >
+                                {/* Tarjeta izquierda */}
                                 <button
                                     type="button"
                                     className="about-spotlight__side about-spotlight__side--left"
@@ -212,37 +207,32 @@ const AboutPreviewSection = () => {
                                     />
                                 </button>
 
+                                {/* Tarjeta principal */}
                                 <article
-                                    className={`about-spotlight__main ${previewMemberId === currentMember.id ? 'is-selected' : ''
-                                        }`}
+                                    className={`about-spotlight__main ${previewMemberId === displayMember.id ? 'is-selected' : ''}`}
                                 >
                                     <button
                                         type="button"
                                         className="about-spotlight__main-button"
                                         onClick={handleCenterClick}
-                                        aria-label={`Ver perfil de ${currentMember.name}`}
+                                        aria-label={`Ver perfil de ${displayMember.name}`}
                                     >
-                                        <div className="about-spotlight__image-stage">
+                                        {/* Stage — un solo img, fade via clase */}
+                                        <div
+                                            className={`about-spotlight__image-stage about-spotlight__image-stage--${fadeState}`}
+                                        >
                                             <img
-                                                src={currentMember.image}
-                                                alt={currentMember.name}
-                                                className="about-spotlight__image about-spotlight__image--current"
-                                                style={{ objectPosition: currentMember.imageFocus }}
+                                                key={displayMember.id}
+                                                src={displayMember.image}
+                                                alt={displayMember.name}
+                                                className="about-spotlight__image"
+                                                style={{ objectPosition: displayMember.imageFocus }}
                                             />
-
-                                            {incomingIndex !== null && (
-                                                <img
-                                                    src={teamMembers[incomingIndex].image}
-                                                    alt={teamMembers[incomingIndex].name}
-                                                    className="about-spotlight__image about-spotlight__image--incoming"
-                                                    style={{ objectPosition: teamMembers[incomingIndex].imageFocus }}
-                                                />
-                                            )}
                                         </div>
 
-                                        <div className="about-spotlight__info">
-                                            <p className="about-spotlight__role">{currentMember.role}</p>
-                                            <h3 className="about-spotlight__name">{currentMember.name}</h3>
+                                        <div className={`about-spotlight__info ${isTransitioning ? 'is-hidden' : ''}`}>
+                                            <p className="about-spotlight__role">{displayMember.role}</p>
+                                            <h3 className="about-spotlight__name">{displayMember.name}</h3>
                                         </div>
                                     </button>
 
@@ -265,6 +255,7 @@ const AboutPreviewSection = () => {
                                     </button>
                                 </article>
 
+                                {/* Tarjeta derecha */}
                                 <button
                                     type="button"
                                     className="about-spotlight__side about-spotlight__side--right"
@@ -278,13 +269,13 @@ const AboutPreviewSection = () => {
                                     />
                                 </button>
 
+                                {/* Dots */}
                                 <div className="about-spotlight__dots">
                                     {teamMembers.map((member, index) => (
                                         <button
                                             key={member.id}
                                             type="button"
-                                            className={`about-spotlight__dot ${index === currentIndex ? 'is-active' : ''
-                                                }`}
+                                            className={`about-spotlight__dot ${index === currentIndex ? 'is-active' : ''}`}
                                             onClick={(event) => handleDotClick(event, index)}
                                             aria-label={`Ver a ${member.name}`}
                                         />
@@ -306,7 +297,7 @@ const AboutPreviewSection = () => {
                 >
                     <div
                         className="about-team-modal__dialog"
-                        onClick={(event) => event.stopPropagation()}
+                        onClick={(e) => e.stopPropagation()}
                     >
                         <button
                             type="button"
@@ -329,34 +320,21 @@ const AboutPreviewSection = () => {
 
                             <aside className="about-team-modal__content">
                                 <p className="about-team-modal__eyebrow">Perfil profesional</p>
-
                                 <h3 className="about-team-modal__name">{activeMember.name}</h3>
-
-                                <p className="about-team-modal__credentials">
-                                    {activeMember.credentials}
-                                </p>
-
+                                <p className="about-team-modal__credentials">{activeMember.credentials}</p>
                                 <p className="about-team-modal__role">{activeMember.role}</p>
-
                                 <div className="about-team-modal__divider" />
-
                                 <p className="about-team-modal__area">{activeMember.area}</p>
-
-                                <p className="about-team-modal__biography">
-                                    {activeMember.biography}
-                                </p>
-
+                                <p className="about-team-modal__biography">{activeMember.biography}</p>
                                 <div className="about-team-modal__contact">
                                     <a href={normalizePhoneHref(activeMember.phone)}>
                                         <i className="bi bi-telephone-fill" />
                                         {activeMember.phone}
                                     </a>
-
                                     <a href={`mailto:${activeMember.email}`}>
                                         <i className="bi bi-envelope-fill" />
                                         {activeMember.email}
                                     </a>
-
                                 </div>
                             </aside>
                         </div>
