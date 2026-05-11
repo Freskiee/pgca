@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import alfonsoImg from '../../assets/socios/alfonso.png'
-import alejandroImg from '../../assets/socios/alejandro.png'
 import joseAlbertoImg from '../../assets/socios/jose_alberto.png'
+import alejandroImg from '../../assets/socios/alejandro.png'
 
 const teamMembers = [
     {
