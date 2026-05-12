@@ -1,4 +1,4 @@
-import jose_albertoImg from '../assets/socios/jose_alberto.png'
+import jose_albertoImg from '../assets/socios/jose_alberto.jpg'
 import alejandroImg from '../assets/socios/alejandro.png'
 import alfonsoImg from '../assets/socios/alfonso.png'
 
