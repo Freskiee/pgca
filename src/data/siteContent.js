@@ -1,4 +1,4 @@
-import angelIndependencia from '../assets/inicio/angel_indepe.jpg';
+import angelIndependencia from '../assets/inicio/angel_indepe.png';
 
 export const siteContent = {
   brand: {
