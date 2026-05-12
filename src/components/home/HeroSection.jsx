@@ -36,25 +36,34 @@ const heroMarqueeItems = [
   },
 ]
 
+const scrollToContact = () => {
+  const section = document.getElementById('contacto')
+  if (!section) return
+
+  const scroll = (behavior = 'smooth') => {
+    const top = section.getBoundingClientRect().top + window.scrollY
+
+    window.scrollTo({
+      top,
+      behavior,
+    })
+  }
+
+  scroll('smooth')
+
+  window.setTimeout(() => {
+    scroll('auto')
+    window.history.replaceState({}, '', window.location.pathname)
+  }, 420)
+}
+
 const HeroSection = () => {
   const { title, description, primaryCta, backgroundImage } = siteContent.hero
   const [isFolderOpen, setIsFolderOpen] = useState(false)
 
   const handleContactClick = (event) => {
     event.preventDefault()
-
-    const section = document.getElementById('contacto')
-
-    if (section) {
-      section.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
-    }
-
-    if (window.location.hash) {
-      window.history.replaceState(null, '', window.location.pathname)
-    }
+    scrollToContact()
   }
 
   const marqueeLoop = [...heroMarqueeItems, ...heroMarqueeItems]
@@ -76,7 +85,6 @@ const HeroSection = () => {
         <div className="hero-section__layout">
           <div className="hero-section__content">
             <div className="hero-section__content-box">
-
               <h1 className="hero-section__title">{title}</h1>
 
               <p className="hero-section__subtitle">{description}</p>
@@ -126,4 +134,4 @@ const HeroSection = () => {
   )
 }
 
-export default HeroSection;
+export default HeroSection

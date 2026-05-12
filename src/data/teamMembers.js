@@ -11,7 +11,7 @@ export const teamMembers = [
         area: 'Consultoría fiscal, patrimonial y de negocios',
         image: jose_albertoImg,
         phone: '55 4027 6991',
-        email: 'alberto@pgca.com.mx',
+        email: 'albertolc@pgca.com.mx',
         biography:
             'Especialista en consultoría y asesoría fiscal, patrimonial y de negocios, derecho fiscal, asesoría contable y financiera. Cuenta con más de 17 años de trayectoria profesional, asesorando empresas nacionales e internacionales en proyectos de reestructura corporativa, fusiones, escisiones, optimización financiera, contable y fiscal. Ha participado en estrategias de recuperación de saldos a favor por montos relevantes en diversos sectores empresariales, manteniendo como eje principal la protección patrimonial de sus clientes. También se ha desempeñado como catedrático en materia fiscal en distintas universidades a nivel nacional.',
     },
@@ -23,7 +23,7 @@ export const teamMembers = [
         area: 'Defensa penal, crisis y asuntos complejos',
         image: alejandroImg,
         phone: '55 4871 5443',
-        email: 'alejandro@pgca.com.mx',
+        email: 'aeguerrero@pgca.com.mx',
         biography:
             'Licenciado en Derecho por la Barra Nacional de Abogados. Especialista en Derecho Procesal Penal y Maestro en Ciencias Penales por la Universidad Anáhuac Norte. Su práctica se centra en la defensa penal, la negociación de conflictos complejos y el manejo de crisis, con un enfoque orientado a la contención de riesgos, el control procesal y la resolución estratégica de asuntos de alta complejidad.',
     },
