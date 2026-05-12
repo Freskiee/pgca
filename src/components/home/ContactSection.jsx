@@ -11,7 +11,7 @@ const CONTACT_INFO = {
     'https://www.google.com/maps/search/?api=1&query=Av.%20Insurgentes%20Sur%201877%20Piso%208%20Guadalupe%20Inn%20%C3%81lvaro%20Obreg%C3%B3n%2001020%20CDMX',
   addressShort: 'Av. Insurgentes Sur 1877, Piso 8',
   addressFull: 'Guadalupe Inn, Álvaro Obregón, 01020 Álvaro Obregón, CDMX',
-  hours: 'Lunes a viernes · 9:00 a 18:00',
+  hours: 'Lunes a Viernes · 9:00 a 19:00',
   mapsEmbed:
     'https://www.google.com/maps?q=Av.%20Insurgentes%20Sur%201877%20Piso%208%20Guadalupe%20Inn%20%C3%81lvaro%20Obreg%C3%B3n%2001020%20CDMX&z=16&output=embed',
 }

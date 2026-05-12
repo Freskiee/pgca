@@ -11,6 +11,7 @@
 .floating-actions__button {
   width: 56px;
   height: 56px;
+  border: 0;
   border-radius: 999px;
   display: grid;
   place-items: center;
@@ -19,6 +20,7 @@
   color: #fff;
   font-size: 1.3rem;
   line-height: 1;
+  cursor: pointer;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.18);
   transition:
     transform 0.22s ease,
@@ -45,6 +47,105 @@
   background: #1f2f4d;
 }
 
+.floating-actions__notice {
+  position: absolute;
+  right: 0;
+  bottom: 136px;
+  width: min(315px, calc(100vw - 32px));
+  padding: 1rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #172432;
+  border: 1px solid rgba(31, 47, 77, 0.1);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
+  animation: floatingNoticeIn 0.22s ease;
+}
+
+.floating-actions__notice::after {
+  content: "";
+  position: absolute;
+  right: 21px;
+  bottom: -8px;
+  width: 16px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.96);
+  transform: rotate(45deg);
+  border-right: 1px solid rgba(31, 47, 77, 0.1);
+  border-bottom: 1px solid rgba(31, 47, 77, 0.1);
+}
+
+.floating-actions__notice-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: 0;
+  background: transparent;
+  color: rgba(23, 36, 50, 0.62);
+  font-size: 1.3rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.floating-actions__notice strong {
+  display: block;
+  margin-right: 1.6rem;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.45rem;
+  line-height: 1;
+  color: #172432;
+}
+
+.floating-actions__notice p {
+  margin: 0.55rem 0 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: rgba(23, 36, 50, 0.74);
+}
+
+.floating-actions__notice-actions {
+  display: flex;
+  gap: 0.55rem;
+  margin-top: 0.9rem;
+}
+
+.floating-actions__notice-actions button,
+.floating-actions__notice-actions a {
+  min-height: 38px;
+  padding: 0 0.9rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.floating-actions__notice-actions button {
+  border: 1px solid rgba(31, 47, 77, 0.12);
+  background: transparent;
+  color: #1f2f4d;
+  cursor: pointer;
+}
+
+.floating-actions__notice-actions a {
+  border: 1px solid #1f2f4d;
+  background: #1f2f4d;
+  color: #ffffff;
+}
+
+@keyframes floatingNoticeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 768px) {
   .floating-actions {
     right: 14px;
@@ -61,4 +162,83 @@
   .floating-actions__button i {
     font-size: 1.15rem;
   }
+
+  .floating-actions__notice {
+    bottom: 126px;
+  }
+}
+
+.floating-actions__notice-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.floating-actions__notice-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(180, 129, 42, 0.12);
+  color: #9c7a3f;
+  font-size: 0.95rem;
+}
+
+.floating-actions__notice-header strong {
+  display: block;
+  margin: 0;
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.3rem;
+  line-height: 1;
+  color: #172432;
+}
+
+.floating-actions__notice-header span {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.72rem;
+  line-height: 1.4;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(23, 36, 50, 0.5);
+}
+
+.floating-actions__notice-alt {
+  margin-top: 0.7rem !important;
+  font-size: 0.82rem !important;
+  line-height: 1.6 !important;
+}
+
+.floating-actions__notice-alt a {
+  color: #1f2f4d;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(31, 47, 77, 0.22);
+  transition:
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.floating-actions__notice-alt a:hover {
+  color: #9c7a3f;
+  border-color: rgba(156, 122, 63, 0.4);
+}
+
+.floating-actions__notice-link {
+  border: 0;
+  border-bottom: 1px solid rgba(31, 47, 77, 0.22);
+  padding: 0;
+  background: transparent;
+  color: #1f2f4d;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.floating-actions__notice-link:hover {
+  color: #9c7a3f;
+  border-color: rgba(156, 122, 63, 0.4);
 }
