@@ -7,16 +7,16 @@ export const instagramPosts = [
     {
         id: 1,
         image: igPost1,
-        postUrl: 'https://www.instagram.com/p/DQz18pZAe1d/?hl=es',
+        postUrl: 'https://www.instagram.com/p/DY_gD6VDbP7/?hl=es',
         likes: '1,284',
         comments: '46',
         caption:
-            'Compromiso, estrategia y atención profesional en cada asunto.',
+            'Hoy celebramos 2 años de PGCA. Gracias, PGCA. Gracias, familia.',
     },
     {
         id: 2,
         image: igPost2,
-        postUrl: 'https://www.instagram.com/p/DQ4R_j8DefE/?hl=es',
+        postUrl: 'https://www.instagram.com/p/DYvaOgtDsfO/?hl=es',
         likes: '982',
         comments: '31',
         caption:
@@ -25,7 +25,7 @@ export const instagramPosts = [
     {
         id: 3,
         image: igPost3,
-        postUrl: 'https://www.instagram.com/p/DYAd_QYlr_G/?hl=es&img_index=1',
+        postUrl: 'https://www.instagram.com/p/DYLXFi3lwGw/?hl=es',
         likes: '1,106',
         comments: '28',
         caption:

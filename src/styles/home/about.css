@@ -780,9 +780,10 @@
   }
 
   .about-team-modal__photo {
-    object-fit: cover;
-    object-position: center 18%;
-  }
+  object-fit: contain;
+  object-position: center center;
+  background: #0b1118;
+}
 
   .about-team-modal__content {
     padding: 24px 20px 28px;
@@ -839,6 +840,6 @@
   }
 
   .about-team-modal__photo {
-    object-position: center 16%;
-  }
+  object-position: center center;
+}
 }

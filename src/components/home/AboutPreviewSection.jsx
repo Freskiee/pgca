@@ -1,7 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import alfonsoImg from '../../assets/socios/alfonso.png'
+import alfonsoImg from '../../assets/socios/alfonso_1.jpg'
 import joseAlbertoImg from '../../assets/socios/jose_alberto.jpg'
-import alejandroImg from '../../assets/socios/alejandro.png'
+import alejandroImg from '../../assets/socios/alejandro_1.jpg'
+import alejandroModalImg from '../../assets/socios/alejandro.jpg'
+import alfonsoModalImg from '../../assets/socios/alfonso_2.jpg'
 
 const teamMembers = [
     {
@@ -24,6 +26,7 @@ const teamMembers = [
         role: 'Socio · Derecho Penal',
         area: 'Defensa penal, crisis y asuntos complejos',
         image: alejandroImg,
+        modalImage: alejandroModalImg,
         imageFocus: 'center 22%',
         phone: '55 4871 5443',
         email: 'aeguerrero@pgca.com.mx',
@@ -37,6 +40,7 @@ const teamMembers = [
         role: 'Socio · Derecho Fiscal',
         area: 'Litigio fiscal, administrativo y prevención de riesgos',
         image: alfonsoImg,
+        modalImage: alfonsoModalImg,
         imageFocus: 'center 25%',
         phone: '55 9309 5640',
         email: 'alfonsoyp@pgca.com.mx',
@@ -311,7 +315,7 @@ const AboutPreviewSection = () => {
                         <div className="about-team-modal__layout">
                             <div className="about-team-modal__photo-wrap">
                                 <img
-                                    src={activeMember.image}
+                                    src={activeMember.modalImage || activeMember.image}
                                     alt={activeMember.name}
                                     className="about-team-modal__photo"
                                     style={{ objectPosition: activeMember.imageFocus }}
